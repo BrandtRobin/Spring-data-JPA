@@ -24,8 +24,8 @@ public class User extends AbstractEntity {
 	@ManyToOne
 	private Team team;
 
-	@OneToMany(mappedBy = "User", fetch = FetchType.LAZY)
-	private Collection<WorkItem> workitem;
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Collection<WorkItem> workItems;
 
 	protected User() {
 	}
@@ -53,8 +53,8 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
-	public Collection<WorkItem> getWorkitem() {
-		return workitem;
+	public Collection<WorkItem> getWorkItems() {
+		return workItems;
 	}
 
 	@Override
