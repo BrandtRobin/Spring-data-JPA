@@ -18,8 +18,8 @@ public class Team extends AbstractEntity {
 
 	private String teamName;
 
-	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-	private Collection<User> users;
+//	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+//	private Collection<User> users;
 
 	public Team(String teamName) {
 		this.teamName = teamName;

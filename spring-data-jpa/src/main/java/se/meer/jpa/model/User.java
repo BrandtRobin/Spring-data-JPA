@@ -21,8 +21,8 @@ public class User extends AbstractEntity {
 	private String lastname;
 	private String username;
 
-	@ManyToOne
-	private Team team;
+//	@ManyToOne
+//	private Team team;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<WorkItem> workItems;
@@ -30,11 +30,11 @@ public class User extends AbstractEntity {
 	protected User() {
 	}
 
-	public User(String firstname, String lastname, String username, Team team) {
+	public User(String firstname, String lastname, String username) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
-		this.team = team;
+//		this.team = team;
 	}
 
 	public String getFirstname() {
@@ -49,9 +49,9 @@ public class User extends AbstractEntity {
 		return username;
 	}
 
-	public Team getTeam() {
-		return team;
-	}
+//	public Team getTeam() {
+//		return team;
+//	}
 
 	public Collection<WorkItem> getWorkItems() {
 		return workItems;
