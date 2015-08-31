@@ -1,5 +1,7 @@
 package se.meer.jpa.model;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,7 +16,8 @@ import se.meer.jpa.superclass.AbstractEntity;
 @Table(name = "tblWorkItems")
 public class WorkItem extends AbstractEntity {
 
-	private Long workItemNumber;
+	private String workItemNumber;
+	private String workItemNote;
 
 	private Status status;
 
@@ -25,15 +28,20 @@ public class WorkItem extends AbstractEntity {
 	@JoinColumn
 	private Issue issue;
 
-	public WorkItem(Long workItemNumber) {
-		this.workItemNumber = workItemNumber;
+	public WorkItem(String workItemNote) {
+		this.workItemNumber = UUID.randomUUID().toString();
+		this.workItemNote = workItemNote;
 	}
 
 	protected WorkItem() {
 	}
 
-	public Long getWorkItemNumber() {
+	public String getWorkItemNumber() {
 		return workItemNumber;
+	}
+	
+	public String getWorkItemNote() {
+		return workItemNote;
 	}
 
 	public Status getStatus() {
