@@ -3,6 +3,7 @@ package se.meer.jpa.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import se.meer.jpa.service.IssueService;
 import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 
@@ -17,5 +18,10 @@ public class ServiceConfig {
 	@Bean
 	public TeamService teamService() {
 		return new TeamService();
+	}
+	
+	@Bean
+	public IssueService issueService(){
+		return new IssueService();
 	}
 }
