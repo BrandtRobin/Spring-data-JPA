@@ -26,7 +26,7 @@ public class DatabaseConfig {
 
 		HikariConfig config = new HikariConfig();
 		config.setDriverClassName("com.mysql.jdbc.Driver");
-		config.setJdbcUrl("jdbc:mysql://localhost:3307/meer-spring-jpa");
+		config.setJdbcUrl("jdbc:mysql://127.0.0.1:3307/meer-spring-jpa");
 		config.setUsername("root");
 		config.setPassword("");
 

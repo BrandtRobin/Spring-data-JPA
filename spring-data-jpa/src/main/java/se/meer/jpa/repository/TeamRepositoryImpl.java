@@ -6,6 +6,6 @@ public class TeamRepositoryImpl implements TeamCustomRepository {
 
 	@Override
 	public void logTeam(Team team) {
-		System.out.println("0 # Logging employee: [" + team + "]");
+		System.out.println("0 # Logging team: [" + team + "]");
 	}
 }
