@@ -7,7 +7,5 @@ public class UserRepositoryImpl implements UserCustomRepository {
 	@Override
 	public void logUser(User user) {
 		System.out.println("0 # Logging employee: [" + user + "]");
-
 	}
-
 }

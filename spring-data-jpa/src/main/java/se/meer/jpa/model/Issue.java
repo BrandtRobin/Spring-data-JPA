@@ -1,7 +1,6 @@
 package se.meer.jpa.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,27 +12,27 @@ import se.meer.jpa.superclass.AbstractEntity;
 @Table(name = "tblIssues")
 public class Issue extends AbstractEntity {
 
-	private String issueName;
 
-	@OneToOne
-	private WorkItem workItem;
+	private Long issueNumber;
 
-	public Issue(String issueName, WorkItem workItem) {
-		this.issueName = issueName;
-		this.workItem = workItem;
+	private String issueNote;
+
+	public Issue(Long issueNumber, String issueNote) {
+		this.issueNumber = issueNumber;
+		this.issueNote = issueNote;
 	}
 
 	protected Issue() {
 	}
 
-	public String getIssueName() {
-		return issueName;
+	public Long getIssueNumber() {
+		return issueNumber;
 	}
-	
-	public WorkItem getWorkItem() {
-		return workItem;
+
+	public String getIssueNote() {
+		return issueNote;
 	}
-	
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

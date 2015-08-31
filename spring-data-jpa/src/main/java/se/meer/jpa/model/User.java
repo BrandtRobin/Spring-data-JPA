@@ -1,9 +1,11 @@
 package se.meer.jpa.model;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,22 +21,24 @@ public class User extends AbstractEntity {
 
 	private String firstname;
 	private String lastname;
-	private String username;
-
-//	@ManyToOne
-//	private Team team;
+	private String userNumber;
+	private String userName;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Collection<WorkItem> workItems;
 
-	protected User() {
-	}
+	@ManyToOne
+	private Team team;
 
-	public User(String firstname, String lastname, String username) {
+	public User(String firstname, String lastname, String userName, Team team) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.username = username;
-//		this.team = team;
+		this.userNumber = UUID.randomUUID().toString();
+		this.userName = userName;
+		this.team = team;
+	}
+
+	protected User() {
 	}
 
 	public String getFirstname() {
@@ -45,16 +49,20 @@ public class User extends AbstractEntity {
 		return lastname;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserNumber() {
+		return userNumber;
 	}
 
-//	public Team getTeam() {
-//		return team;
-//	}
+	public String getUserName() {
+		return userName;
+	}
 
 	public Collection<WorkItem> getWorkItems() {
 		return workItems;
+	}
+
+	public Team getTeam() {
+		return team;
 	}
 
 	@Override

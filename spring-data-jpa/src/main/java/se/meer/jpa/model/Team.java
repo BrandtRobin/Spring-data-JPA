@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,8 +19,8 @@ public class Team extends AbstractEntity {
 
 	private String teamName;
 
-//	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-//	private Collection<User> users;
+	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+	private Collection<User> users;
 
 	public Team(String teamName) {
 		this.teamName = teamName;
