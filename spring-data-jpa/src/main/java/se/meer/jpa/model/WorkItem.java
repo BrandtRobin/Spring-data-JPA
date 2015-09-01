@@ -1,5 +1,6 @@
 package se.meer.jpa.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -16,7 +17,7 @@ public class WorkItem extends AbstractEntity {
 	@ManyToOne
 	private User user;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Issue issue;
 
 	public WorkItem(String title, String description, String status, User user, Issue issue) {
@@ -49,9 +50,5 @@ public class WorkItem extends AbstractEntity {
 	public User getUser() {
 		return user;
 	}
-
-	// public void addUser(User user) {
-	// this.user = user;
-	// }
 
 }

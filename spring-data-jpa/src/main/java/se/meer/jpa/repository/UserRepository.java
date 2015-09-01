@@ -1,5 +1,6 @@
 package se.meer.jpa.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	User findByLastname(String lastname);
 	User findByUsername(String username);
 
+	Collection<? extends User> findUserByTeamId(Long id);
+
+	
+	
+	
 }

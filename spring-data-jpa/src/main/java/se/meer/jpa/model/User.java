@@ -3,6 +3,7 @@ package se.meer.jpa.model;
 import java.util.Collection;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,13 +24,12 @@ public class User extends AbstractEntity {
 	private String userNumber;
 	@Column
 	private String username;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	Collection<WorkItem> workItems;
 
 	protected User() {
@@ -40,7 +40,7 @@ public class User extends AbstractEntity {
 		this.lastname = lastname;
 		this.username = userName;
 		this.userNumber = UUID.randomUUID().toString();
-		
+
 	}
 
 	public String getFirstname() {
@@ -66,5 +66,17 @@ public class User extends AbstractEntity {
 
 	public void addWorkItem(WorkItem item) {
 		workItems.add(item);
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
