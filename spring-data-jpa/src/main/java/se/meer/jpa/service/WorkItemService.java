@@ -12,7 +12,6 @@ public class WorkItemService {
 
 	public WorkItem addWorkItem(WorkItem workItem) {
 		workItemRepository.save(workItem);
-		workItemRepository.logWorkItem(workItem);
 		return workItemRepository.save(workItem);
 	}
 }

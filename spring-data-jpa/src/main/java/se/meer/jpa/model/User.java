@@ -3,6 +3,7 @@ package se.meer.jpa.model;
 import java.util.Collection;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -10,35 +11,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import se.meer.jpa.superclass.AbstractEntity;
-
 @Entity
 @Table(name = "tblUsers")
 public class User extends AbstractEntity {
 
+	@Column
 	private String firstname;
+	@Column
 	private String lastname;
+	@Column(unique = true)
 	private String userNumber;
-	private String userName;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Collection<WorkItem> workItems;
+	@Column
+	private String username;
+	
 
 	@ManyToOne
+	@JoinColumn(name = "team_id")
 	private Team team;
 
-	public User(String firstname, String lastname, String userName, Team team) {
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.userNumber = UUID.randomUUID().toString();
-		this.userName = userName;
-		this.team = team;
-	}
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	Collection<WorkItem> workItems;
 
 	protected User() {
+	}
+
+	public User(String firstname, String lastname, String userName) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.username = userName;
+		this.userNumber = UUID.randomUUID().toString();
+		
 	}
 
 	public String getFirstname() {
@@ -49,25 +51,20 @@ public class User extends AbstractEntity {
 		return lastname;
 	}
 
-	public String getUserNumber() {
-		return userNumber;
-	}
-
 	public String getUserName() {
-		return userName;
-	}
-
-	public Collection<WorkItem> getWorkItems() {
-		return workItems;
+		return username;
 	}
 
 	public Team getTeam() {
 		return team;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+	public User setTeam(Team team) {
+		this.team = team;
+		return this;
 	}
 
+	public void addWorkItem(WorkItem item) {
+		workItems.add(item);
+	}
 }

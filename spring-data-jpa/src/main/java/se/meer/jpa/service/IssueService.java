@@ -12,7 +12,6 @@ public class IssueService {
 
 	public Issue addIssue(Issue issue) {
 		issueRepository.save(issue);
-		issueRepository.logIssue(issue);
 		return issueRepository.save(issue);
 	}
 

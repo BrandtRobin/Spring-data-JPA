@@ -12,7 +12,6 @@ public class UserService {
 
 	public User addUser(User user) {
 		userRepository.save(user);
-		userRepository.logUser(user);
 		return userRepository.save(user);
 	}
 

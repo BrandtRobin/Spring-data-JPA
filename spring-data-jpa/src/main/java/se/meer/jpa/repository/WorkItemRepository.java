@@ -6,7 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import se.meer.jpa.model.WorkItem;
 
-public interface WorkItemRepository extends CrudRepository<WorkItem, Long>, WorkItemCustomRepository {
+public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 	
-	List<WorkItem> findByWorkItemNumber(Long workItemNumber);
+	List<WorkItem> findByTitle(String title);
+	List<WorkItem> findByDescription(String description);
+	List<WorkItem> findByStatus(String status);
 }

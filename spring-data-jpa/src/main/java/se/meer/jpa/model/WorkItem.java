@@ -1,54 +1,48 @@
 package se.meer.jpa.model;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import se.meer.jpa.superclass.AbstractEntity;
 
 @Entity
 @Table(name = "tblWorkItems")
 public class WorkItem extends AbstractEntity {
 
-	private String workItemNumber;
-	private String workItemNote;
-
-	private Status status;
+	private String title;
+	private String description;
+	private String status;
 
 	@ManyToOne
 	private User user;
 
 	@OneToOne
-	@JoinColumn
 	private Issue issue;
 
-	public WorkItem(String workItemNote) {
-		this.workItemNumber = UUID.randomUUID().toString();
-		this.workItemNote = workItemNote;
+	public WorkItem(String title, String description, String status, User user, Issue issue) {
+		this.title = title;
+		this.description = description;
+		this.status = status;
+		this.user = user;
+		this.issue = issue;
 	}
 
 	protected WorkItem() {
 	}
 
-	public String getWorkItemNumber() {
-		return workItemNumber;
-	}
-	
-	public String getWorkItemNote() {
-		return workItemNote;
+	public String getTitle() {
+		return title;
 	}
 
-	public Status getStatus() {
+	public String getDescription() {
+		return description;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
-	public Issue getIssue() {
+	public Issue getIssues() {
 		return issue;
 	}
 
@@ -56,9 +50,8 @@ public class WorkItem extends AbstractEntity {
 		return user;
 	}
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
-	}
+	// public void addUser(User user) {
+	// this.user = user;
+	// }
 
 }

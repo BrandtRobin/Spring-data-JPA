@@ -17,22 +17,25 @@ public class Main {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
 			context.scan("se.meer.jpa.config");
 			context.refresh();
-			
-		
-			
+
 			UserService userService = context.getBean(UserService.class);
 			TeamService teamService = context.getBean(TeamService.class);
-			WorkItemService workItemService = context.getBean(WorkItemService.class);			
+			WorkItemService workItemService = context.getBean(WorkItemService.class);
 			IssueService issueService = context.getBean(IssueService.class);
+
+			Team team = new Team("Development");
+
+			User user = new User("Göran", "Eriksson", "masterguru").setTeam(team);
 			
-			Team team = new Team("Dev");
-			User user = new User("Eric", "Guru", "EriGu", team);
-			WorkItem workItem = new WorkItem("It is wrong with you!");
-			Issue issue = new Issue(1001L, "A bug");
+			Issue issue = new Issue("This must be fixed", "Bug is being tested");
+
+			WorkItem workItem = new WorkItem("Wont compile", "Bug", "Testing", user, issue);
+
 			teamService.addTeam(team);
 			userService.addUser(user);
-			workItemService.addWorkItem(workItem);
 			issueService.addIssue(issue);
+			workItemService.addWorkItem(workItem);
+
 		}
 	}
 
