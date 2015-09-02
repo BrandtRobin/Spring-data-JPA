@@ -71,6 +71,9 @@ public class Main {
 			// Add User to Team
 			// teamService.addUserToTeam(2L, team);
 
+			// Delete WorkItem
+			 workItemService.deleteWorkItemById(2L);
+
 		}
 	}
 

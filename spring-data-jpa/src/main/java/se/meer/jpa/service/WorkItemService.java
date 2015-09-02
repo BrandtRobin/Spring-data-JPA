@@ -14,4 +14,9 @@ public class WorkItemService {
 		workItemRepository.save(workItem);
 		return workItemRepository.save(workItem);
 	}
+	
+	public Long deleteWorkItemById(Long id){
+		workItemRepository.delete(id);
+		return id;
+	}
 }
