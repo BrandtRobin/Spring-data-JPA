@@ -19,7 +19,7 @@
 	</repositories>
 
 	<build>
-		<finalName>jax-rs</finalName>
+		<finalName>web-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

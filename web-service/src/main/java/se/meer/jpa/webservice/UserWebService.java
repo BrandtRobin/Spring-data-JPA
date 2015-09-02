@@ -22,40 +22,25 @@ public class UserWebService
 
 	@Context
 	private UriInfo uriInfo;
-	
-	private UserService service = getUserService();
-	
-	
+
+	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+
 	@GET
-	@Path("{userId}")
+	// @Path("{userId}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sayHello()
 	{
 		User user = new User("Berit", "lastname", "emp");
-
-		service.addUser(user);
-		
-		// try (AnnotationConfigApplicationContext context = new
-		// AnnotationConfigApplicationContext()) {
-		// context.scan("se.meer.jpa.config");
-		// context.refresh();
-		// UserService service = context.getBean(UserService.class);
-		// service.addUser(user);
-		//
-		 return user.getFirstname();
-		//
-		// }
-
+		getUserService().addUser(user);
+		return user.getFirstname();
 	}
 
 	public UserService getUserService()
 	{
-		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
-		{
-			context.scan("se.meer.jpa.config");
-			context.refresh();
-			UserService service = context.getBean(UserService.class);
-			return service;
-		}
+		context.scan("se.meer.jpa.config");
+		context.refresh();
+		UserService service = context.getBean(UserService.class);
+		return service;
 	}
 }
