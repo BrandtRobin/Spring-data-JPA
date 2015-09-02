@@ -47,10 +47,7 @@ public class TeamService {
 	
 	public void addUserToTeam(Long userId, Team team){
 		User user = userRepository.findOne(userId);
-		System.out.println("-------" + user.getTeam().getTeamName());
 		user.setTeam(team);
-		System.out.println(user.getTeam().getTeamName());
 		userRepository.save(user);
-		System.out.println(user.getTeam().getTeamName());
 	}
 }

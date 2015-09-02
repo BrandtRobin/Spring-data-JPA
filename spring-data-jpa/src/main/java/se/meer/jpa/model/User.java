@@ -25,7 +25,7 @@ public class User extends AbstractEntity {
 	@Column
 	private String username;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "team_id")
 	private Team team;
 

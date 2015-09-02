@@ -63,14 +63,13 @@ public class Main {
 
 			// Delete Team
 			// teamService.deleteTeamById(2L);
-			
-			//Get all Teams
+
+			// Get all Teams
 			// List<Team> tempTeam = teamService.findAllTeams();
 			// tempTeam.forEach(System.out::println);
-			
-			//Add User to Team
-			teamService.addUserToTeam(2L, team);
-			
+
+			// Add User to Team
+			// teamService.addUserToTeam(2L, team);
 
 		}
 	}
