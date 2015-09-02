@@ -1,29 +1,29 @@
 package se.meer.jpa.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import se.meer.jpa.superclass.AbstractEntity;
-
 @Entity
 @Table(name = "tblWorkItems")
 public class WorkItem extends AbstractEntity {
 
-	private String itemName;
-	
+	private String title;
+	private String description;
+	private String status;
+
 	@ManyToOne
 	private User user;
-	
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Issue issue;
-	
-	public WorkItem(String itemName, User user, Issue issue) {
-		this.itemName = itemName;
+
+	public WorkItem(String title, String description, String status, User user, Issue issue) {
+		this.title = title;
+		this.description = description;
+		this.status = status;
 		this.user = user;
 		this.issue = issue;
 	}
@@ -31,21 +31,24 @@ public class WorkItem extends AbstractEntity {
 	protected WorkItem() {
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public Issue getIssues() {
+		return issue;
 	}
 
 	public User getUser() {
 		return user;
-	}
-	
-	public Issue getIssue() {
-		return issue;
-	}
-
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 }

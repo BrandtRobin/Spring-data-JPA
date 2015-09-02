@@ -1,4 +1,4 @@
-package se.meer.jpa.superclass;
+package se.meer.jpa.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
