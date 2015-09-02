@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.zaxxer.hikari.metrics.CodaHaleMetricsTracker.Context;
+
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
@@ -26,12 +28,14 @@ public class Main {
 			IssueService issueService = context.getBean(IssueService.class);
 
 			Team team = new Team("Development");
-			User user = new User("Göran", "Eriksson", "masterguru").setTeam(teamService.findByTeamId(1L));
-			Issue issue = new Issue("This must be fixed", "Bug is being tested");
-			WorkItem workItem = new WorkItem("Wont compile", "Bug", "Testing", user, issue);
+			// User user = new User("Göran", "Eriksson",
+			// "masterguru").setTeam(teamService.findByTeamId(1L));
+			User user = new User("Eliashs", "Habibi", "Yalla");
+			Issue issue = new Issue("This must be fixed", "Bug is being tested by YODA");
+			WorkItem workItem = new WorkItem("Wont compile I THINK", "Bug", "Testing", user, issue);
 
 			// teamService.addTeam(team);
-			// userService.addUser(user);
+			userService.addUser(user);
 			// issueService.addIssue(issue);
 			// workItemService.addWorkItem(workItem);
 
@@ -72,7 +76,12 @@ public class Main {
 			// teamService.addUserToTeam(2L, team);
 
 			// Delete WorkItem
-			 workItemService.deleteWorkItemById(2L);
+			// workItemService.deleteWorkItemById(2L);
+
+			// Update Issue
+			// issueService.updateIssue(1L, issue);
+
+			// issueService.findIssueById(1L);
 
 		}
 	}

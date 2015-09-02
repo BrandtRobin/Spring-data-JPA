@@ -33,5 +33,17 @@ public class Issue extends AbstractEntity {
 	public WorkItem getWorkItem() {
 		return workItem;
 	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setWorkItem(WorkItem workItem) {
+		this.workItem = workItem;
+	}
 
 }
