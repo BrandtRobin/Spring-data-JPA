@@ -27,20 +27,21 @@ public class Main {
 			WorkItemService workItemService = context.getBean(WorkItemService.class);
 			IssueService issueService = context.getBean(IssueService.class);
 
-			Team team = new Team("Development");
-			// User user = new User("Göran", "Eriksson",
-			// "masterguru").setTeam(teamService.findByTeamId(1L));
-			User user = new User("Eliashs", "Habibi", "Yalla");
-			Issue issue = new Issue("This must be fixed", "Bug is being tested by YODA");
-			WorkItem workItem = new WorkItem("Wont compile I THINK", "Bug", "Testing", user, issue);
+//			Team team = new Team("Development");
+//			 User user = new User("Göran", "Eriksson",
+//			 "masterguru").setTeam(teamService.findByTeamId(2L));
+//			User user = new User("Eliashs", "Habibi", "Yalla");
+//			Issue issue = new Issue("This must be fixed", "Bug is being tested by YODA");
+//			WorkItem workItem = new WorkItem("Wont compile I THINK", "Bug", "Testing", user, issue);
 
-			// teamService.addTeam(team);
-			userService.addUser(user);
+//			 teamService.addTeam(team);
+//			userService.addUser(user);
 			// issueService.addIssue(issue);
 			// workItemService.addWorkItem(workItem);
 
 			// Create User
 			// userService.addUser(user);
+//			userService.deleteUserById(3L);
 
 			// Update User
 			// User tempUser = userService.findUserById(1L);

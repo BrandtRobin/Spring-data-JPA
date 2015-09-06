@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "tblUsers")
@@ -35,10 +36,10 @@ public class User extends AbstractEntity {
 	protected User() {
 	}
 
-	public User(String firstname, String lastname, String userName) {
+	public User(String firstname, String lastname, String username) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.username = userName;
+		this.username = username;
 		this.userNumber = UUID.randomUUID().toString();
 
 	}
@@ -51,7 +52,7 @@ public class User extends AbstractEntity {
 		return lastname;
 	}
 
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -78,5 +79,25 @@ public class User extends AbstractEntity {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getUserNumber()
+	{
+		return userNumber;
+	}
+	
+	public void setUserNumber(String userNumber)
+	{
+		this.userNumber = userNumber;
+	}
+	
+	public Collection<WorkItem> getWorkItems()
+	{
+		return workItems;
+	}
+	
+	public void setWorkItems(Collection<WorkItem> workItems)
+	{
+		this.workItems = workItems;
 	}
 }
