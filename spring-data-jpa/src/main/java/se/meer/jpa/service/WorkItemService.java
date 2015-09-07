@@ -25,6 +25,10 @@ public class WorkItemService {
 		workItemRepository.delete(id);
 		return id;
 	}
+	
+	public WorkItem findWorkItemById(Long id) {
+		return workItemRepository.findOne(id);
+	}
 
 	public List<WorkItem> findByStatus(String status) {
 		return workItemRepository.findByStatus(status);

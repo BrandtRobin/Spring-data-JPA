@@ -52,7 +52,7 @@ public class User extends AbstractEntity {
 		return lastname;
 	}
 
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -84,6 +84,22 @@ public class User extends AbstractEntity {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public void addUserNumber() {
+		this.userNumber = UUID.randomUUID().toString();
+	}
+
+	public String getUserNumber() {
+		return userNumber;
+	}
+
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
+
+	public void setWorkItems(Collection<WorkItem> workItems) {
+		this.workItems = workItems;
 	}
 
 }

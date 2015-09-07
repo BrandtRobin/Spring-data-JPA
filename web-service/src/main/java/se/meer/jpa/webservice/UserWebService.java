@@ -41,7 +41,7 @@ public final class UserWebService
 	public Response createUser(final User user) 
 	{
 		user.addUserNumber();
-		service.addUser(user);
+		service.createOrUpdateUser(user);
 		final String id = "id/" + user.getId();
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
 		return Response.status(Status.CREATED).location(location).build();
@@ -49,7 +49,7 @@ public final class UserWebService
 	
 	@DELETE
 	@Path("id/{id}")
-	public Response deleteUserById(@PathParam("id") final Long id) //TODO Kan inte ta bort en user som har ett team. Fixa relation.
+	public Response deleteUserById(@PathParam("id") final Long id)
 	{
 		service.deleteUserById(id);
 		return Response.ok("User with id " +id +" Deleted").build();
@@ -60,14 +60,6 @@ public final class UserWebService
 	public Response findUserById(@PathParam("id") final Long id)
 	{
 		final User user = service.findUserById(id);
-		return Response.ok().entity(user).build();
-	}
-	
-	@GET
-	@Path("/name/{name}")
-	public Response findUserByName(@PathParam("name") final String name)
-	{
-		final List<User> user = service.findUserByName(name);
 		return Response.ok().entity(user).build();
 	}
 	
@@ -91,7 +83,7 @@ public final class UserWebService
 	@Path("/username/{username}")
 	public Response findUserByUsername(@PathParam("username") final String username)
 	{
-		final List<User> user = service.findUserByFirstname(username);
+		final List<User> user = service.findUserByUsername(username);
 		return Response.ok().entity(user).build();
 	}
 	
