@@ -1,5 +1,6 @@
 package se.meer.jpa.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -11,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "tblUsers")
@@ -36,12 +36,12 @@ public class User extends AbstractEntity {
 	protected User() {
 	}
 
-	public User(String firstname, String lastname, String username) {
+	public User(String firstname, String lastname, String userName) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.username = username;
+		this.username = userName;
 		this.userNumber = UUID.randomUUID().toString();
-
+		workItems = new ArrayList<>();
 	}
 
 	public String getFirstname() {
@@ -52,7 +52,7 @@ public class User extends AbstractEntity {
 		return lastname;
 	}
 
-	public String getUsername() {
+	public String getUserName() {
 		return username;
 	}
 
@@ -60,13 +60,18 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
+	public Collection<WorkItem> getWorkItems() {
+		return workItems;
+	}
+
 	public User setTeam(Team team) {
 		this.team = team;
 		return this;
 	}
 
-	public void addWorkItem(WorkItem item) {
-		workItems.add(item);
+	public WorkItem addWorkItem(WorkItem workItem) {
+		workItems.add(workItem);
+		return workItem;
 	}
 
 	public void setFirstname(String firstname) {
@@ -80,29 +85,5 @@ public class User extends AbstractEntity {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	public String getUserNumber()
-	{
-		return userNumber;
-	}
-	
-	public void setUserNumber(String userNumber)
-	{
-		this.userNumber = userNumber;
-	}
-	
-	public void addUserNumber()
-	{
-		this.userNumber = UUID.randomUUID().toString();
-	}
-	
-	public Collection<WorkItem> getWorkItems()
-	{
-		return workItems;
-	}
-	
-	public void setWorkItems(Collection<WorkItem> workItems)
-	{
-		this.workItems = workItems;
-	}
+
 }
