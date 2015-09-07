@@ -18,10 +18,12 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
+@Component
 @Path("users")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -31,7 +33,7 @@ public final class UserWebService
 	@Context
 	private UriInfo uriInfo;
 	
-//	@Inject
+//	@Context
 //	UserService service;
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
