@@ -18,12 +18,10 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
-@Component
 @Path("users")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -32,15 +30,15 @@ public final class UserWebService
 
 	@Context
 	private UriInfo uriInfo;
-	
-//	@Context
-//	UserService service;
+
+	// @Context
+	// UserService service;
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final UserService service = getUserService();
 
 	@POST
-	public Response createUser(final User user) 
+	public Response createUser(final User user)
 	{
 		user.addUserNumber();
 		service.createOrUpdateUser(user);
@@ -49,12 +47,20 @@ public final class UserWebService
 		return Response.status(Status.CREATED).location(location).build();
 	}
 	
+	@PUT
+	@Path("id/{id}")
+	public Response updateUserById(@PathParam("id") final Long id, final User user) {
+		user.setId(id);
+		service.createOrUpdateUser(user);
+		return Response.ok().entity(user).build();
+	}
+
 	@DELETE
 	@Path("id/{id}")
 	public Response deleteUserById(@PathParam("id") final Long id)
 	{
 		service.deleteUserById(id);
-		return Response.ok("User with id " +id +" Deleted").build();
+		return Response.ok("User with id " + id + " Deleted").build();
 	}
 
 	@GET
@@ -64,7 +70,7 @@ public final class UserWebService
 		final User user = service.findUserById(id);
 		return Response.ok().entity(user).build();
 	}
-	
+
 	@GET
 	@Path("/firstname/{firstname}")
 	public Response findUserByFirstname(@PathParam("firstname") final String firstname)
@@ -72,7 +78,7 @@ public final class UserWebService
 		final List<User> user = service.findUserByFirstname(firstname);
 		return Response.ok().entity(user).build();
 	}
-	
+
 	@GET
 	@Path("/lastname/{lastname}")
 	public Response findUserByLastname(@PathParam("lastname") final String lastname)
@@ -80,20 +86,12 @@ public final class UserWebService
 		final List<User> user = service.findUserByLastname(lastname);
 		return Response.ok().entity(user).build();
 	}
-	
+
 	@GET
 	@Path("/username/{username}")
 	public Response findUserByUsername(@PathParam("username") final String username)
 	{
 		final List<User> user = service.findUserByUsername(username);
-		return Response.ok().entity(user).build();
-	}
-	
-	@PUT
-	@Path("id/{id}")
-	public Response updateUserById(@PathParam("id") final Long id, final User user)
-	{
-		service.updateUserById(id, user);
 		return Response.ok().entity(user).build();
 	}
 

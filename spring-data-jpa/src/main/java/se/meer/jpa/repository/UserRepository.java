@@ -23,4 +23,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findByUsername(String username);
 
 	Collection<? extends User> findUserByTeamId(Long id);
+	
 }
