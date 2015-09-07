@@ -17,19 +17,25 @@ public class Team extends AbstractEntity {
 	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Collection<User> users;
 
-	protected Team() {
-	}
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private Collection<WorkItem> workItems;
 
-	public String getTeamName() {
-		return teamName;
+	protected Team() {
 	}
 
 	public Team(String name) {
 		this.teamName = name;
 	}
 
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
 	public void addUser(User user) {
 		users.add(user);
 	}
 
+	public void addWorkItem(WorkItem workItem) {
+		workItems.add(workItem);
+	}
 }
