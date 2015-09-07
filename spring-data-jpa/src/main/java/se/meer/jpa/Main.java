@@ -35,7 +35,7 @@ public class Main {
 			WorkItem workItem = new WorkItem("Wont compile I THINK", "Bug", "Testing", user, issue);
 
 			// teamService.addTeam(team);
-			userService.addUser(user);
+			userService.createOrUpdateUser(user);
 			// issueService.addIssue(issue);
 			// workItemService.addWorkItem(workItem);
 
@@ -82,6 +82,14 @@ public class Main {
 			// issueService.updateIssue(1L, issue);
 
 			// issueService.findIssueById(1L);
+			
+			teamService.deleteTeamById(2L);
+//			teamService.addUserToTeam(1L, teamService.findByTeamId(2L));
+//			teamService.addUserToTeam(3L, teamService.findByTeamId(2L));
+//			teamService.addUserToTeam(4L, teamService.findByTeamId(2L));
+//			teamService.addUserToTeam(5L, teamService.findByTeamId(2L));
+//			teamService.addUserToTeam(6L, teamService.findByTeamId(2L));
+//			
 
 		}
 	}

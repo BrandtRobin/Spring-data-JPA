@@ -10,7 +10,7 @@ public class WorkItemService {
 	@Autowired
 	private WorkItemRepository workItemRepository;
 
-	public WorkItem addWorkItem(WorkItem workItem) {
+	public WorkItem createOrUpdateWorkItem(WorkItem workItem) {
 		workItemRepository.save(workItem);
 		return workItemRepository.save(workItem);
 	}

@@ -14,7 +14,7 @@ public class Team extends AbstractEntity {
 
 	private String teamName;
 
-	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<User> users;
 
 	protected Team() {

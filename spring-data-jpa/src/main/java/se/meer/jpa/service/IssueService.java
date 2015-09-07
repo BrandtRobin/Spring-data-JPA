@@ -12,19 +12,19 @@ public class IssueService {
 	@Autowired
 	private IssueRepository issueRepository;
 
-	public Issue addIssue(Issue issue) {
+	public Issue createOrUpdateIssue(Issue issue) {
 		issueRepository.save(issue);
 		return issueRepository.save(issue);
 	}
 	
-	public Issue updateIssue(Long id, Issue issueUpdate) {
-		Issue issue = findIssueById(id);
-		issue.setDescription(issueUpdate.getDescription());
-		issue.setTitle(issueUpdate.getTitle());
-		issue.setWorkItem(issueUpdate.getWorkItem());
-		addIssue(issue);
-		return issue;
-	}	
+//	public Issue updateIssue(Long id, Issue issueUpdate) {
+//		Issue issue = findIssueById(id);
+//		issue.setDescription(issueUpdate.getDescription());
+//		issue.setTitle(issueUpdate.getTitle());
+//		issue.setWorkItem(issueUpdate.getWorkItem());
+//		addIssue(issue);
+//		return issue;
+//	}	
 	
 	public Issue findIssueById(Long id) {
 		Issue issue = issueRepository.findOne(id);
