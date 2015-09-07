@@ -91,6 +91,11 @@ public class User extends AbstractEntity {
 		this.userNumber = userNumber;
 	}
 	
+	public void addUserNumber()
+	{
+		this.userNumber = UUID.randomUUID().toString();
+	}
+	
 	public Collection<WorkItem> getWorkItems()
 	{
 		return workItems;

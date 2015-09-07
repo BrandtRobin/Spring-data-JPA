@@ -18,6 +18,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findByFirstname(String firstname);
 	List<User> findByLastname(String lastname);
 	List<User> findByUsername(String username);
+	List<User> findByFirstnameOrLastnameOrUsername(String firstname, String Lastname, String username);
 
 	Collection<? extends User> findUserByTeamId(Long id);
 

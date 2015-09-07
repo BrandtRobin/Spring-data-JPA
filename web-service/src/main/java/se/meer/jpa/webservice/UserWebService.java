@@ -3,7 +3,6 @@ package se.meer.jpa.webservice;
 import java.net.URI;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,10 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import org.glassfish.jersey.process.internal.RequestScoped;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
@@ -44,8 +40,9 @@ public final class UserWebService
 	@POST
 	public Response createUser(final User user) 
 	{
+		user.addUserNumber();
 		service.addUser(user);
-		final String id = "" + user.getId();
+		final String id = "id/" + user.getId();
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
 		return Response.status(Status.CREATED).location(location).build();
 	}
@@ -67,10 +64,34 @@ public final class UserWebService
 	}
 	
 	@GET
-	@Path("{name}")
+	@Path("/name/{name}")
 	public Response findUserByName(@PathParam("name") final String name)
 	{
-		final List<User> user = service.findUserByFirstname(name);
+		final List<User> user = service.findUserByName(name);
+		return Response.ok().entity(user).build();
+	}
+	
+	@GET
+	@Path("/firstname/{firstname}")
+	public Response findUserByFirstname(@PathParam("firstname") final String firstname)
+	{
+		final List<User> user = service.findUserByFirstname(firstname);
+		return Response.ok().entity(user).build();
+	}
+	
+	@GET
+	@Path("/lastname/{lastname}")
+	public Response findUserByLastname(@PathParam("lastname") final String lastname)
+	{
+		final List<User> user = service.findUserByLastname(lastname);
+		return Response.ok().entity(user).build();
+	}
+	
+	@GET
+	@Path("/username/{username}")
+	public Response findUserByUsername(@PathParam("username") final String username)
+	{
+		final List<User> user = service.findUserByFirstname(username);
 		return Response.ok().entity(user).build();
 	}
 	

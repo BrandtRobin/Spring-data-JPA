@@ -24,19 +24,17 @@ public class UserService {
 		return userRepository.findOne(id);
 	}
 	
+	@Transactional
 	public User updateUserById(Long id, User user) {
-		User userToUpdate = userRepository.findOne(id);
-		userToUpdate.setFirstname(user.getFirstname());
-		userToUpdate.setLastname(user.getLastname());
-		userToUpdate.setUsername(user.getUsername());
-		userToUpdate.setUserNumber(user.getUserNumber());
-		userToUpdate.setTeam(user.getTeam());
-		userToUpdate.setWorkItems(user.getWorkItems());
-		return userRepository.save(userToUpdate);
+		return userRepository.save(user);
 	}
 
 	public List<User> findUserByFirstname(String firstname) {
 		return userRepository.findByFirstname(firstname);
+	}
+	
+	public List<User> findUserByName(String name) {
+		return userRepository.findByFirstnameOrLastnameOrUsername(name, name, name);
 	}
 
 	public List<User> findUserByLastname(String lastname) {
