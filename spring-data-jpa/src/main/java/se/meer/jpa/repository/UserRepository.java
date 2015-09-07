@@ -15,13 +15,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	@Query()
 	List<User> findUserByTeam(Team team);
+
 	User findByFirstname(String firstname);
+
 	User findByLastname(String lastname);
+
 	User findByUsername(String username);
 
 	Collection<? extends User> findUserByTeamId(Long id);
-
-	
-	
-	
 }

@@ -38,13 +38,13 @@ public class TeamService {
 		return id;
 	}
 
-	public List<Team> findAllTeams(){
+	public List<Team> findAllTeams() {
 		List<Team> teams = new ArrayList<>();
 		teams.addAll((Collection<? extends Team>) teamRepository.findAll());
 		return teams;
 	}
-	
-	public void addUserToTeam(Long userId, Team team){
+
+	public void addUserToTeam(Long userId, Team team) {
 		User user = userRepository.findOne(userId);
 		user.setTeam(team);
 		userRepository.save(user);

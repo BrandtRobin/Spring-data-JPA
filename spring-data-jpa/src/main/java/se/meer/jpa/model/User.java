@@ -1,5 +1,6 @@
 package se.meer.jpa.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class User extends AbstractEntity {
 		this.lastname = lastname;
 		this.username = userName;
 		this.userNumber = UUID.randomUUID().toString();
-
+		workItems = new ArrayList<>();
 	}
 
 	public String getFirstname() {
@@ -59,13 +60,18 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
+	public Collection<WorkItem> getWorkItems() {
+		return workItems;
+	}
+
 	public User setTeam(Team team) {
 		this.team = team;
 		return this;
 	}
 
-	public void addWorkItem(WorkItem item) {
-		workItems.add(item);
+	public WorkItem addWorkItem(WorkItem workItem) {
+		workItems.add(workItem);
+		return workItem;
 	}
 
 	public void setFirstname(String firstname) {
@@ -79,4 +85,5 @@ public class User extends AbstractEntity {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 }

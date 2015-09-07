@@ -1,10 +1,6 @@
 package se.meer.jpa;
 
-import java.util.List;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.zaxxer.hikari.metrics.CodaHaleMetricsTracker.Context;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.Team;
@@ -28,16 +24,9 @@ public class Main {
 			IssueService issueService = context.getBean(IssueService.class);
 
 			Team team = new Team("Development");
-			// User user = new User("Göran", "Eriksson",
-			// "masterguru").setTeam(teamService.findByTeamId(1L));
-			User user = new User("Eliashs", "Habibi", "Yalla");
-			Issue issue = new Issue("This must be fixed", "Bug is being tested by YODA");
-			WorkItem workItem = new WorkItem("Wont compile I THINK", "Bug", "Testing", user, issue);
-
-			// teamService.addTeam(team);
-			userService.createOrUpdateUser(user);
-			// issueService.addIssue(issue);
-			// workItemService.addWorkItem(workItem);
+			User user = new User("Göran", "Eriksson", "masterguru");
+			Issue issue = new Issue("This must be fixed", "Bug is being tested");
+			WorkItem workItem = new WorkItem("This must be fixed", "Error in code", "DONE!");
 
 			// Create User
 			// userService.addUser(user);
@@ -78,20 +67,49 @@ public class Main {
 			// Delete WorkItem
 			// workItemService.deleteWorkItemById(2L);
 
+			// Add WorkItem to User
+			// workItem.addUser(user);
+			// workItemService.createOrUpdateWorkItem(workItem);
+
+			// Find WorkItem by Status
+			// workItemService.createOrUpdateWorkItem(workItem);
+			// workItemService.findByStatus("DONE!").forEach(System.out::println);
+
+			// Find WorkItem by Team
+			// workItemService.createOrUpdateWorkItem(workItem);
+			// workItemService.findByTeam(team).forEach(System.out::println);
+
 			// Update Issue
 			// issueService.updateIssue(1L, issue);
 
 			// issueService.findIssueById(1L);
-			
-			teamService.deleteTeamById(2L);
-//			teamService.addUserToTeam(1L, teamService.findByTeamId(2L));
-//			teamService.addUserToTeam(3L, teamService.findByTeamId(2L));
-//			teamService.addUserToTeam(4L, teamService.findByTeamId(2L));
-//			teamService.addUserToTeam(5L, teamService.findByTeamId(2L));
-//			teamService.addUserToTeam(6L, teamService.findByTeamId(2L));
-//			
+
+			// teamService.addUserToTeam(1L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(3L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(4L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(5L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(6L, teamService.findByTeamId(2L));
+			//
+			// Find WorkItem by User
+			// workItemService.createOrUpdateWorkItem(workItem);
+			// workItemService.findByUser(user).forEach(System.out::println);
+
+			// Find WorkItem by Description
+			// workItemService.findByDescription("%error%", new PageRequest(0,
+			// 10)).forEach(System.out::println);
+
+			// Create Issue
+			// issue.addWorkItem(workItem);
+			// issueService.createOrUpdateIssue(issue);
+
+			// Update Issue
+			// issue.setDescription("This is now fixed");
+			// issue.setTitle("Finished testing");
+			// issueService.createOrUpdateIssue(issue);
+
+			// Find all WorkItems with Issue
+			// workItemService.findWorkItemsWithIssue().forEach(System.out::println);
 
 		}
 	}
-
 }

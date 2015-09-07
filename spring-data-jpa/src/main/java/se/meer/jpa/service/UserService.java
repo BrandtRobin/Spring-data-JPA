@@ -34,18 +34,18 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
-	public List<User> findUsersByTeam(Team team){
+	public List<User> findUsersByTeam(Team team) {
 		List<User> users = new ArrayList<>();
 		users.addAll(userRepository.findUserByTeam(team));
 		return users;
 	}
-	
+
 	public List<User> findUsersByTeamId(Long id) {
 		List<User> users = new ArrayList<>();
 		users.addAll(userRepository.findUserByTeamId(id));
 		return users;
 	}
-	
+
 	public Long deleteUserById(Long id) {
 		userRepository.delete(id);
 		return id;
@@ -55,6 +55,5 @@ public class UserService {
 		userRepository.delete(user);
 		return user;
 	}
-	
 
 }

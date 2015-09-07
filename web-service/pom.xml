@@ -19,7 +19,7 @@
 	</repositories>
 
 	<build>
-		<finalName>jax-rs</finalName>
+		<finalName>web-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -78,16 +78,35 @@
 			<artifactId>jersey-container-servlet-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.xml</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.1</version>
+		<groupId>javax.xml</groupId>
+		<artifactId>jaxb-api</artifactId>
+		<version>2.1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.2.5-b10</version>
+		<groupId>com.sun.xml.bind</groupId>
+		<artifactId>jaxb-impl</artifactId>
+		<version>2.2.5-b10</version>
 		</dependency>
+
+		<dependency>
+		<groupId>com.owlike</groupId>
+		<artifactId>genson</artifactId>
+		<version>1.3</version>
+		</dependency>
+
+		<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.3.1</version>
+		</dependency>
+
+	<dependency>
+		<groupId>org.glassfish.jersey.media</groupId>
+		<artifactId>jersey-media-moxy</artifactId>
+	</dependency>
+
+
 		<dependency>
 			<groupId>se.meer.jpa</groupId>
 			<artifactId>spring-data-jpa</artifactId>
