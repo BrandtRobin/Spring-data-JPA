@@ -28,11 +28,6 @@ public class Main {
 			Issue issue = new Issue("This must be fixed", "Bug is being tested");
 			WorkItem workItem = new WorkItem("This must be fixed", "Error in code", "DONE!");
 
-			teamService.createOrUpdateTeam(team);
-			userService.createOrUpdateUser(user);
-			issueService.createOrUpdateIssue(issue);
-			workItemService.createOrUpdateWorkItem(workItem);
-
 			// Create User
 			// userService.addUser(user);
 
@@ -67,14 +62,14 @@ public class Main {
 			// tempTeam.forEach(System.out::println);
 
 			// Add User to Team
-			teamService.addUserToTeam(2L, team);
+			// teamService.addUserToTeam(2L, team);
 
 			// Delete WorkItem
 			// workItemService.deleteWorkItemById(2L);
 
 			// Add WorkItem to User
-			workItem.addUser(user);
-			workItemService.createOrUpdateWorkItem(workItem);
+			// workItem.addUser(user);
+			// workItemService.createOrUpdateWorkItem(workItem);
 
 			// Find WorkItem by Status
 			// workItemService.createOrUpdateWorkItem(workItem);
@@ -87,6 +82,14 @@ public class Main {
 			// Update Issue
 			// issueService.updateIssue(1L, issue);
 
+			// issueService.findIssueById(1L);
+
+			// teamService.addUserToTeam(1L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(3L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(4L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(5L, teamService.findByTeamId(2L));
+			// teamService.addUserToTeam(6L, teamService.findByTeamId(2L));
+			//
 			// Find WorkItem by User
 			// workItemService.createOrUpdateWorkItem(workItem);
 			// workItemService.findByUser(user).forEach(System.out::println);
@@ -96,8 +99,8 @@ public class Main {
 			// 10)).forEach(System.out::println);
 
 			// Create Issue
-			issue.addWorkItem(workItem);
-			issueService.createOrUpdateIssue(issue);
+			// issue.addWorkItem(workItem);
+			// issueService.createOrUpdateIssue(issue);
 
 			// Update Issue
 			// issue.setDescription("This is now fixed");
@@ -105,7 +108,8 @@ public class Main {
 			// issueService.createOrUpdateIssue(issue);
 
 			// Find all WorkItems with Issue
-			workItemService.findWorkItemsWithIssue().forEach(System.out::println);
+			// workItemService.findWorkItemsWithIssue().forEach(System.out::println);
+
 		}
 	}
 }

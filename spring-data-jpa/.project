@@ -13,6 +13,12 @@
     <buildCommand>
       <name>org.eclipse.wst.validation.validationbuilder</name>
     </buildCommand>
+<<<<<<< HEAD
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+=======
     <buildCommand>
       <name>org.eclipse.m2e.core.maven2Builder</name>
     </buildCommand>
@@ -21,6 +27,7 @@
     <nature>org.eclipse.m2e.core.maven2Nature</nature>
     <nature>org.eclipse.jdt.core.javanature</nature>
     <nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+>>>>>>> 5e51db2b2c04b96ad36278301a43b959e1841189
     <nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
     <nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
   </natures>

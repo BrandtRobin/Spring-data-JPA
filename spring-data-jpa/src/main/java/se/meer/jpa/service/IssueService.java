@@ -11,6 +11,13 @@ public class IssueService {
 	private IssueRepository issueRepository;
 
 	public Issue createOrUpdateIssue(Issue issue) {
+		issueRepository.save(issue);
 		return issueRepository.save(issue);
 	}
+		
+	public Issue findIssueById(Long id) {
+		Issue issue = issueRepository.findOne(id);
+		return issue;
+	}	
+
 }
