@@ -31,9 +31,6 @@ public final class UserWebService
 	@Context
 	private UriInfo uriInfo;
 
-	// @Autowire
-	// UserService service;
-
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final UserService service = getUserService();
 
@@ -46,10 +43,10 @@ public final class UserWebService
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
 		return Response.status(Status.CREATED).location(location).build();
 	}
-	
+
 	@PUT
 	@Path("id/{id}")
-	public Response updateUserById(@PathParam("id") final Long id, final User user) 
+	public Response updateUserById(@PathParam("id") final Long id, final User user)
 	{
 		user.setId(id);
 		service.createOrUpdateUser(user);
@@ -94,6 +91,14 @@ public final class UserWebService
 	{
 		final List<User> user = service.findUserByUsername(username);
 		return Response.ok().entity(user).build();
+	}
+
+	@GET
+	@Path("/team/{teamId}")
+	public Response findAllUsersInTeam(@PathParam("teamId") final Long teamId)
+	{
+		List<User> users = service.findUsersByTeamId(teamId);
+		return Response.ok().entity(users).build();
 	}
 
 	public UserService getUserService()

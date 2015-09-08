@@ -22,6 +22,10 @@ public class Team extends AbstractEntity {
 
 	protected Team() {
 	}
+	
+	public String getTeamName() {
+		return teamName;
+	}
 
 	public Team(String name) {
 		this.teamName = name;
