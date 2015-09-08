@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
@@ -17,7 +18,7 @@ public class UserService {
 	public User createOrUpdateUser(User user) {
 		return userRepository.save(user);
 	}
-
+	
 	public User findUserById(Long id) {
 		return userRepository.findOne(id);
 	}
@@ -56,15 +57,15 @@ public class UserService {
 		return user;
 	}
 
-	public User updateUserById(Long id, User user) {
-		User userToUpdate = userRepository.findOne(id);
-		userToUpdate.setFirstname(user.getFirstname());
-		userToUpdate.setLastname(user.getLastname());
-		userToUpdate.setUsername(user.getUsername());
-		userToUpdate.setUserNumber(user.getUserNumber());
-		userToUpdate.setTeam(user.getTeam());
-		userToUpdate.setWorkItems(user.getWorkItems());
-		return userRepository.save(userToUpdate);
-	}
+//	public User updateUserById(Long id, User user) {
+//		User userToUpdate = userRepository.findOne(id);
+//		userToUpdate.setFirstname(user.getFirstname());
+//		userToUpdate.setLastname(user.getLastname());
+//		userToUpdate.setUsername(user.getUsername());
+//		userToUpdate.setUserNumber(user.getUserNumber());
+//		userToUpdate.setTeam(user.getTeam());
+//		userToUpdate.setWorkItems(user.getWorkItems());
+//		return userRepository.save(userToUpdate);
+//	}
 
 }

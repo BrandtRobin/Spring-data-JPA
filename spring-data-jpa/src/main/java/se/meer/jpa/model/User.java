@@ -43,7 +43,7 @@ public class User extends AbstractEntity {
 		this.userNumber = UUID.randomUUID().toString();
 		workItems = new ArrayList<>();
 	}
-
+	
 	public String getFirstname() {
 		return firstname;
 	}
