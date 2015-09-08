@@ -2,6 +2,5 @@
   <wb-module deploy-name="spring-data-jpa">
     <wb-resource deploy-path="/" source-path="src/main/java"/>
     <wb-resource deploy-path="/" source-path="target/generated-resources/eclipse"/>
-        <wb-resource deploy-path="/" source-path="/src/main/java"/>
   </wb-module>
 </project-modules>
