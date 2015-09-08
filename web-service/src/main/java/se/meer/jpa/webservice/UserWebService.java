@@ -31,7 +31,7 @@ public final class UserWebService
 	@Context
 	private UriInfo uriInfo;
 
-	// @Context
+	// @Autowire
 	// UserService service;
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -49,7 +49,8 @@ public final class UserWebService
 	
 	@PUT
 	@Path("id/{id}")
-	public Response updateUserById(@PathParam("id") final Long id, final User user) {
+	public Response updateUserById(@PathParam("id") final Long id, final User user) 
+	{
 		user.setId(id);
 		service.createOrUpdateUser(user);
 		return Response.ok().entity(user).build();
