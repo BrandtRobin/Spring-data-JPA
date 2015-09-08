@@ -1,5 +1,7 @@
 package se.meer.jpa;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import se.meer.jpa.model.Issue;
@@ -50,9 +52,8 @@ public class Main {
 			// userService.findUserByUsername("masterguru");
 
 			// Find Users in team
-			// List<User> tempUsers =
-			// userService.findUsersByTeam(teamService.findByTeamId(1L));
-			// tempUsers.forEach(System.out::println);
+			List<User> tempUsers = userService.findUsersByTeam(teamService.findByTeamId(1L));
+			tempUsers.forEach(System.out::println);
 
 			// Delete Team
 			// teamService.deleteTeamById(2L);
