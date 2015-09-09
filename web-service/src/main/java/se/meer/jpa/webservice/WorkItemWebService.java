@@ -89,6 +89,13 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItems).build();
 	}
 
+	@GET
+	@Path("issues")
+	public Response findAllWorkItemsWithIssue() {
+		List<WorkItem> workItems = service.findWorkItemsWithIssue();
+		return Response.ok().entity(workItems).build();
+	}
+	
 	@PUT
 	@Path("id/{workItemId}/user/{userId}")
 	public Response addWorkItemToUser(@PathParam("workItemId") final Long workItemId,
@@ -106,16 +113,17 @@ public class WorkItemWebService {
 		service.updateWorkItemById(id, workItem);
 		return Response.ok().entity(workItem).build();
 	}
-	
+
 	@PUT
 	@Path("id/{workItemId}/issue/{issueId}")
-	public Response addIssueToWorkItem(@PathParam("workItemId") final Long workItemId, @PathParam("issueId") final Long issueId) {
+	public Response addIssueToWorkItem(@PathParam("workItemId") final Long workItemId,
+			@PathParam("issueId") final Long issueId) {
 		WorkItem workItem = service.findWorkItemById(workItemId);
 		Issue issue = issueService.findIssueById(issueId);
-		
+
 		workItem.setIssue(issue);
 		issue.setWorkItem(workItem);
-		
+
 		issueService.createOrUpdateIssue(issue);
 		service.createOrUpdateWorkItem(workItem);
 		return Response.ok().build();
@@ -127,7 +135,7 @@ public class WorkItemWebService {
 		WorkItemService service = context.getBean(WorkItemService.class);
 		return service;
 	}
-	
+
 	private IssueService getIssueService() {
 		IssueService issueService = context.getBean(IssueService.class);
 		return issueService;
