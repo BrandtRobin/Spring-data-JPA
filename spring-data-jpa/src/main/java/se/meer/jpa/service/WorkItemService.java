@@ -3,8 +3,6 @@ package se.meer.jpa.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
@@ -21,17 +19,29 @@ public class WorkItemService {
 		return workItemRepository.save(workItem);
 	}
 
-	public Long deleteWorkItemById(Long id) {
-		workItemRepository.delete(id);
-		return id;
-	}
-	
 	public WorkItem findWorkItemById(Long id) {
 		return workItemRepository.findOne(id);
 	}
 
+	public Long deleteWorkItemById(Long id) {
+		workItemRepository.delete(id);
+		return id;
+	}
+
+	public WorkItem updateWorkItemById(Long id, WorkItem workItem) {
+		return workItemRepository.save(workItem);
+	}
+
 	public List<WorkItem> findByStatus(String status) {
 		return workItemRepository.findByStatus(status);
+	}
+
+	public List<WorkItem> findAllWorkItemsByUserId(Long id) {
+		return workItemRepository.findAllWorkItemsByUserId(id);
+	}
+
+	public List<WorkItem> findAllWorkItemsByTeamId(Long id) {
+		return workItemRepository.findAllWorkItemsByTeamId(id);
 	}
 
 	public List<WorkItem> findByTeam(Team team) {
@@ -42,10 +52,10 @@ public class WorkItemService {
 		return workItemRepository.findByUser(user);
 	}
 
-	public Slice<WorkItem> findByDescription(String searchDesc, Pageable pageable) {
-		return workItemRepository.findByDescriptionLike(searchDesc, pageable);
+	public List<WorkItem> findByDescriptionContaining(String description) {
+		return workItemRepository.findByDescriptionContaining(description);
 	}
-
+	
 	public List<WorkItem> findWorkItemsWithIssue() {
 		return workItemRepository.findByIssueIdNotNull();
 	}

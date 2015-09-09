@@ -29,6 +29,8 @@ public class Main {
 			User user = new User("Göran", "Eriksson", "masterguru");
 			Issue issue = new Issue("This must be fixed", "Bug is being tested");
 			WorkItem workItem = new WorkItem("This must be fixed", "Error in code", "DONE!");
+			
+			workItemService.findByDescriptionContaining("code").forEach(System.out::println);;
 
 			// Create User
 			// userService.addUser(user);
@@ -52,8 +54,9 @@ public class Main {
 			// userService.findUserByUsername("masterguru");
 
 			// Find Users in team
-			List<User> tempUsers = userService.findUsersByTeam(teamService.findByTeamId(1L));
-			tempUsers.forEach(System.out::println);
+			// List<User> tempUsers =
+			// userService.findUsersByTeam(teamService.findByTeamId(1L));
+			// tempUsers.forEach(System.out::println);
 
 			// Delete Team
 			// teamService.deleteTeamById(2L);

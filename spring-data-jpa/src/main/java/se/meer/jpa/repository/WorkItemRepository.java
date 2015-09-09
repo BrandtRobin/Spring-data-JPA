@@ -22,7 +22,11 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 
 	List<WorkItem> findByUser(User user);
 
-	Slice<WorkItem> findByDescriptionLike(String searchDesc, Pageable pageable);
+	List<WorkItem> findByDescriptionContaining(String description);
 
 	List<WorkItem> findByIssueIdNotNull();
+
+	List<WorkItem> findAllWorkItemsByUserId(Long id);
+
+	List<WorkItem> findAllWorkItemsByTeamId(Long id);
 }
