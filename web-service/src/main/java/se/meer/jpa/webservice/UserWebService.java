@@ -17,11 +17,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
-import se.meer.jpa.exception.RepositoryException;
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 

@@ -34,6 +34,7 @@ public class WorkItemWebService {
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final WorkItemService service = getWorkItemService();
+	private final UserService userService = getUserService();
 
 	@POST
 	public Response createWorkItem(final WorkItem workItem) {
@@ -89,7 +90,6 @@ public class WorkItemWebService {
 	@Path("id/{workItemId}/user/{userId}")
 	public Response addWorkItemToUser(@PathParam("workItemId") final Long workItemId,
 			@PathParam("userId") final Long userId) {
-		UserService userService = getUserService();
 		WorkItem workItem = service.findWorkItemById(workItemId);
 		workItem.addUser(userService.findUserById(userId));
 		service.createOrUpdateWorkItem(workItem);

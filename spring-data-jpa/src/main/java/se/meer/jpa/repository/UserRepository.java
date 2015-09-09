@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import se.meer.jpa.exception.RepositoryException;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
 

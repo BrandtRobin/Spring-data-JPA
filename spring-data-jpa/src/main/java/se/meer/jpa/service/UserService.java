@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import se.meer.jpa.exception.RepositoryException;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
 import se.meer.jpa.repository.UserRepository;

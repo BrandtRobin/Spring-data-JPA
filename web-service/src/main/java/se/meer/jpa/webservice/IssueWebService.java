@@ -21,7 +21,7 @@ import se.meer.jpa.model.Issue;
 import se.meer.jpa.service.IssueService;
 
 @Component
-@Path("issue")
+@Path("issues")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 public class IssueWebService {
