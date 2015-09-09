@@ -19,7 +19,9 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.WorkItem;
+import se.meer.jpa.service.IssueService;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
@@ -35,6 +37,7 @@ public class WorkItemWebService {
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final WorkItemService service = getWorkItemService();
 	private final UserService userService = getUserService();
+	private final IssueService issueService = getIssueService();
 
 	@POST
 	public Response createWorkItem(final WorkItem workItem) {
@@ -103,12 +106,31 @@ public class WorkItemWebService {
 		service.updateWorkItemById(id, workItem);
 		return Response.ok().entity(workItem).build();
 	}
+	
+	@PUT
+	@Path("id/{workItemId}/issue/{issueId}")
+	public Response addIssueToWorkItem(@PathParam("workItemId") final Long workItemId, @PathParam("issueId") final Long issueId) {
+		WorkItem workItem = service.findWorkItemById(workItemId);
+		Issue issue = issueService.findIssueById(issueId);
+		
+		workItem.setIssue(issue);
+		issue.setWorkItem(workItem);
+		
+		issueService.createOrUpdateIssue(issue);
+		service.createOrUpdateWorkItem(workItem);
+		return Response.ok().build();
+	}
 
 	private WorkItemService getWorkItemService() {
 		context.scan("se.meer.jpa.config");
 		context.refresh();
 		WorkItemService service = context.getBean(WorkItemService.class);
 		return service;
+	}
+	
+	private IssueService getIssueService() {
+		IssueService issueService = context.getBean(IssueService.class);
+		return issueService;
 	}
 
 	private UserService getUserService() {
