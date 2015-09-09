@@ -42,6 +42,10 @@ public class UserService
 	{
 		return userRepository.findByUsername(username);
 	}
+	
+	public User findUserByUserNo(String userNumber) {
+		return userRepository.findUserByUserNumber(userNumber);
+	}
 
 	public List<User> findUsersByTeam(Team team)
 	{

@@ -8,6 +8,7 @@ public class Main {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
 			context.scan("se.meer.jpa.config");
 			context.refresh();
+			
 		}
 	}
 }

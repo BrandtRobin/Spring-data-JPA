@@ -47,6 +47,7 @@ public final class UserWebService {
 	@Path("id/{id}")
 	public Response updateUserById(@PathParam("id") final Long id, final User user) {
 		user.setId(id);
+		user.addUserNumber();
 		service.createOrUpdateUser(user);
 		return Response.ok().entity(user).build();
 	}
@@ -56,6 +57,13 @@ public final class UserWebService {
 	public Response deleteUserById(@PathParam("id") final Long id) {
 		service.deleteUserById(id);
 		return Response.ok("User with id " + id + " Deleted").build();
+	}
+	
+	@GET
+	@Path("usernumber/{userNo}")
+	public Response findUserByUserNumber(@PathParam("userNo") final String userNumber) {
+		User user = service.findUserByUserNo(userNumber);
+		return Response.ok().entity(user).build();
 	}
 
 	@GET

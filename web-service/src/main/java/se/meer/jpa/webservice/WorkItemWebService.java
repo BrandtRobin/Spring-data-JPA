@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.hibernate.sql.Update;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import se.meer.jpa.model.Issue;
@@ -47,7 +48,7 @@ public class WorkItemWebService {
 		return Response.status(Status.CREATED).location(location).build();
 	}
 
-	@DELETE
+	@DELETE //TODO FIX 500 error when delete workItem that doesn't exist
 	@Path("id/{id}")
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
 		service.deleteWorkItemById(id);
@@ -61,8 +62,8 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItem).build();
 	}
 
-	@GET
-	@Path("userId/{id}")
+	@GET //TODO DOESN*T WORK AT ALL
+	@Path("userid/{id}")
 	public Response findAllWorkItemsByUser(@PathParam("userId") final Long userId) {
 		List<WorkItem> workItems = service.findAllWorkItemsByUserId(userId);
 		return Response.ok().entity(workItems).build();
@@ -82,8 +83,8 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItems).build();
 	}
 
-	@GET
-	@Path("teamId/{id}")
+	@GET //TODO DOESN'T WORK AT ALL, SEEMS TO RETURN EVERY WORKITEM WITHOUT TEAM ID == null
+	@Path("teamid/{id}")
 	public Response findAllWorkItemsByTeam(@PathParam("teamId") final Long teamId) {
 		final List<WorkItem> workItems = service.findAllWorkItemsByTeamId(teamId);
 		return Response.ok().entity(workItems).build();
@@ -96,7 +97,7 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItems).build();
 	}
 
-	@PUT
+	@PUT //TODO FIX bug that if userId do not exsist id on workItem is null and 200 is thrown
 	@Path("id/{workItemId}/user/{userId}")
 	public Response addWorkItemToUser(@PathParam("workItemId") final Long workItemId,
 			@PathParam("userId") final Long userId) {
@@ -112,6 +113,15 @@ public class WorkItemWebService {
 		workItem.setId(id);
 		service.updateWorkItemById(id, workItem);
 		return Response.ok().entity(workItem).build();
+	}
+	
+	@PUT
+	@Path("id/{id}/status")
+	public Response updateIssueOnWorkItem(@PathParam("id") final Long id, String status) {
+		WorkItem workItem = service.findWorkItemById(id);
+		workItem.setStatus(status);
+		service.createOrUpdateWorkItem(workItem);
+		return Response.ok().build();
 	}
 
 	@PUT

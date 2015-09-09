@@ -15,7 +15,6 @@ public class WorkItemService {
 	private WorkItemRepository workItemRepository;
 
 	public WorkItem createOrUpdateWorkItem(WorkItem workItem) {
-		workItemRepository.save(workItem);
 		return workItemRepository.save(workItem);
 	}
 
