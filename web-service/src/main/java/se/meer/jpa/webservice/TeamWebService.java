@@ -51,7 +51,7 @@ public class TeamWebService {
 	}
 
 	@PUT
-	@Path("id/{id}")
+	@Path("id/{id}") //TODO: UPDATE A TEAM THAT DOESN'T EXCIST CREATES A NEW
 	public Response updateTeamById(@PathParam("id") final Long id, final Team team) {
 		team.setId(id);
 		service.createOrUpdateTeam(team);
@@ -64,7 +64,7 @@ public class TeamWebService {
 		return Response.ok().entity(teams).build();
 	}
 
-	@POST
+	@PUT //TODO Fix error if team or user id don't exsist
 	@Path("id/{teamId}/user/{userId}")
 	public Response addUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final Long userId) {
 		service.addUserToTeam(userId, service.findByTeamId(teamId));
