@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import se.meer.jpa.exception.RepositoryException;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
 
@@ -23,5 +24,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findByUsername(String username);
 
 	Collection<? extends User> findUserByTeamId(Long id);
-	
+		
 }

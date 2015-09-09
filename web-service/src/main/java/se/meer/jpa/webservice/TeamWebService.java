@@ -59,16 +59,16 @@ public class TeamWebService {
 	}
 
 	@GET
-	public Response findAllTeams(@PathParam("teamName") final Team team) {
+	public Response findAllTeams() {
 		final List<Team> teams = service.findAllTeams();
 		return Response.ok().entity(teams).build();
 	}
 
-	@PUT
+	@POST
 	@Path("id/{teamId}/user/{userId}")
 	public Response addUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final Long userId) {
 		service.addUserToTeam(userId, service.findByTeamId(teamId));
-		return Response.ok().entity(null).build();
+		return Response.ok().build();
 	}
 
 	private TeamService getTeamService() {
