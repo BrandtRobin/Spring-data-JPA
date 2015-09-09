@@ -19,7 +19,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import jdk.nashorn.internal.runtime.FindProperty;
 import se.meer.jpa.model.WorkItem;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
