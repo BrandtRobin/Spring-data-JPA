@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -33,7 +32,6 @@ public class IssueWebService {
 	private final IssueService service = getIssueService();
 
 	@POST
-	//TODO fix 500 internal server error
 	public Response createIssue(final Issue issue) {
 		service.createOrUpdateIssue(issue);
 		final String id = "id/" + issue.getId();
@@ -42,7 +40,7 @@ public class IssueWebService {
 	}
 
 	@PUT
-	@Path("id/{id}")	
+	@Path("id/{id}")
 	public Response updateIssueById(@PathParam("id") final Long id, final Issue issue) {
 		issue.setId(id);
 		service.createOrUpdateIssue(issue);
@@ -55,5 +53,4 @@ public class IssueWebService {
 		IssueService service = context.getBean(IssueService.class);
 		return service;
 	}
-
 }

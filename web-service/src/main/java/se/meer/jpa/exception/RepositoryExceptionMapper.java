@@ -8,12 +8,10 @@ import javax.ws.rs.ext.Provider;
 import se.meer.jpa.exception.RepositoryException;
 
 @Provider
-public class RepositoryExceptionMapper implements ExceptionMapper<RepositoryException>
-{
+public class RepositoryExceptionMapper implements ExceptionMapper<RepositoryException> {
 
 	@Override
-	public Response toResponse(final RepositoryException exception)
-	{
+	public Response toResponse(final RepositoryException exception) {
 		return Response.status(Status.NOT_FOUND).entity(exception.getMessage()).build();
 	}
 
