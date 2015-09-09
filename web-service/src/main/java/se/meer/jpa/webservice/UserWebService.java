@@ -17,8 +17,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
+import se.meer.jpa.exception.RepositoryException;
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
@@ -33,6 +36,7 @@ public final class UserWebService
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final UserService service = getUserService();
+
 
 	@POST
 	public Response createUser(final User user)

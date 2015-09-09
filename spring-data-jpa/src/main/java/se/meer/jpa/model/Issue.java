@@ -2,6 +2,7 @@ package se.meer.jpa.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,7 +12,7 @@ public class Issue extends AbstractEntity {
 	private String title;
 	private String description;
 
-	@ManyToOne
+	@OneToOne
 	private WorkItem workItem;
 
 	public Issue(String title, String description) {

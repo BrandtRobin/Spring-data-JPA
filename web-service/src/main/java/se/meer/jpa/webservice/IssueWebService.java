@@ -33,7 +33,7 @@ public class IssueWebService {
 	private final IssueService service = getIssueService();
 
 	@POST
-	//To do: fix 500 internal server error
+	//TODO fix 500 internal server error
 	public Response createIssue(final Issue issue) {
 		service.createOrUpdateIssue(issue);
 		final String id = "id/" + issue.getId();

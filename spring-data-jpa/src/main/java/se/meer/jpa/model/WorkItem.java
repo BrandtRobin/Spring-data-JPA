@@ -3,6 +3,7 @@ package se.meer.jpa.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,7 +19,7 @@ public class WorkItem extends AbstractEntity {
 	@ManyToOne
 	private User user;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private Issue issue;
 
 	@ManyToOne
