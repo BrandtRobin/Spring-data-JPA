@@ -95,7 +95,7 @@ public class WorkItemWebService {
 		List<WorkItem> workItems = service.findWorkItemsWithIssue();
 		return Response.ok().entity(workItems).build();
 	}
-	
+
 	@PUT
 	@Path("id/{workItemId}/user/{userId}")
 	public Response addWorkItemToUser(@PathParam("workItemId") final Long workItemId,
