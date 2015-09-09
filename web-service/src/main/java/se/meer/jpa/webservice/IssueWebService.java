@@ -38,7 +38,7 @@ public class IssueWebService {
 		service.createOrUpdateIssue(issue);
 		final String id = "id/" + issue.getId();
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
-		return Response.ok(Status.CREATED).location(location).build();
+		return Response.created(location).build();
 	}
 
 	@PUT

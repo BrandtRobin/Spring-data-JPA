@@ -11,7 +11,6 @@ public class IssueService {
 	private IssueRepository issueRepository;
 
 	public Issue createOrUpdateIssue(Issue issue) {
-		issueRepository.save(issue);
 		return issueRepository.save(issue);
 	}
 		
