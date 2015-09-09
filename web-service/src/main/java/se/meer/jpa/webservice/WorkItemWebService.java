@@ -23,7 +23,7 @@ import se.meer.jpa.model.WorkItem;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
-@Path("workItems")
+@Path("workitems")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 
