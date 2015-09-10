@@ -32,7 +32,6 @@ public class IssueWebService {
 	private final IssueService service = getIssueService();
 
 	@POST
-	//TODO fix 500 internal server error
 	public Response createIssue(final Issue issue) {
 		service.createOrUpdateIssue(issue);
 		final String id = "id/" + issue.getId();
@@ -43,9 +42,15 @@ public class IssueWebService {
 	@PUT
 	@Path("id/{id}")	
 	public Response updateIssueById(@PathParam("id") final Long id, final Issue issue) {
-		issue.setId(id);
-		service.createOrUpdateIssue(issue);
-		return Response.ok().entity(issue).build();
+		Issue tempIssue = service.findIssueById(id);
+		if(tempIssue != null) {
+			issue.setWorkItem(tempIssue.getWorkItem());
+			issue.setId(id);
+			service.createOrUpdateIssue(issue);
+			return Response.ok().build();
+		} else {
+			return Response.noContent().build();
+		}		
 	}
 
 	private IssueService getIssueService() {
@@ -54,5 +59,4 @@ public class IssueWebService {
 		IssueService service = context.getBean(IssueService.class);
 		return service;
 	}
-
 }

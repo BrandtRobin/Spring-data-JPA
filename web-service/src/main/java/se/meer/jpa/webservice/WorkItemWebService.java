@@ -48,11 +48,15 @@ public class WorkItemWebService {
 		return Response.status(Status.CREATED).location(location).build();
 	}
 
-	@DELETE //TODO FIX 500 error when delete workItem that doesn't exist
+	@DELETE
 	@Path("id/{id}")
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
-		service.deleteWorkItemById(id);
-		return Response.ok("WorkItem with id " + id + "Deleted").build();
+		if(service.findWorkItemById(id) != null) {
+			service.deleteWorkItemById(id);
+			return Response.ok("WorkItem with id " + id + "Deleted").build();
+		} else {
+			return Response.noContent().build();
+		}		
 	}
 
 	@GET
@@ -83,10 +87,10 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItems).build();
 	}
 
-	@GET //TODO DOESN'T WORK AT ALL, SEEMS TO RETURN EVERY WORKITEM WITHOUT TEAM ID == null
+	@GET
 	@Path("teamid/{id}")
-	public Response findAllWorkItemsByTeam(@PathParam("teamId") final Long teamId) {
-		final List<WorkItem> workItems = service.findAllWorkItemsByTeamId(teamId);
+	public Response findAllWorkItemsByTeamId(@PathParam("id") final Long teamId) {
+		List<WorkItem> workItems = service.findAllWorkItemsByTeamId(teamId);
 		return Response.ok().entity(workItems).build();
 	}
 
@@ -97,14 +101,19 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItems).build();
 	}
 
-	@PUT //TODO FIX bug that if userId do not exsist id on workItem is null and 200 is thrown
+	@PUT
 	@Path("id/{workItemId}/user/{userId}")
 	public Response addWorkItemToUser(@PathParam("workItemId") final Long workItemId,
-			@PathParam("userId") final Long userId) {
-		WorkItem workItem = service.findWorkItemById(workItemId);
-		workItem.addUser(userService.findUserById(userId));
-		service.createOrUpdateWorkItem(workItem);
-		return Response.ok().build();
+			@PathParam("userId") final Long userId) {		
+		if(service.findWorkItemById(workItemId) != null && (userService.findUserById(userId)) != null) {
+			WorkItem workItem = service.findWorkItemById(workItemId);
+			workItem.addUser(userService.findUserById(userId));
+			service.createOrUpdateWorkItem(workItem);
+			return Response.ok().build();
+		} else {
+			return Response.noContent().build();
+		}
+		
 	}
 
 	@PUT
