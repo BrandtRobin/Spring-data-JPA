@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
@@ -32,7 +33,6 @@ public final class UserWebService {
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final UserService service = getUserService();
-
 
 	@POST
 	public Response createUser(final User user) {
@@ -55,10 +55,14 @@ public final class UserWebService {
 	@DELETE
 	@Path("id/{id}")
 	public Response deleteUserById(@PathParam("id") final Long id) {
-		service.deleteUserById(id);
-		return Response.ok("User with id " + id + " Deleted").build();
+		try {
+			service.deleteUserById(id);
+			return Response.ok("User with id " + id + " Deleted").build();
+		} catch (EmptyResultDataAccessException e) {
+			return Response.status(Status.NOT_FOUND).entity("Could not find user with id: " + id).build();
+		}
 	}
-	
+
 	@GET
 	@Path("usernumber/{userNo}")
 	public Response findUserByUserNumber(@PathParam("userNo") final String userNumber) {
