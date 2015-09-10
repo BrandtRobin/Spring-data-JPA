@@ -18,7 +18,7 @@ public class WorkItem extends AbstractEntity {
 	@ManyToOne
 	private User user;
 
-	@OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Issue issue;
 
 	@ManyToOne

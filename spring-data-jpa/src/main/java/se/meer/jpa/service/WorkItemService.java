@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
 import se.meer.jpa.model.WorkItem;
+import se.meer.jpa.repository.IssueRepository;
 import se.meer.jpa.repository.WorkItemRepository;
 
 public class WorkItemService {
 
 	@Autowired
 	private WorkItemRepository workItemRepository;
+	
+	@Autowired
+	private IssueRepository issueRepository;
 
 	public WorkItem createOrUpdateWorkItem(WorkItem workItem) {
 		return workItemRepository.save(workItem);

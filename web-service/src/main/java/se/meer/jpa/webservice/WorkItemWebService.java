@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import org.hibernate.sql.Update;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.WorkItem;
@@ -51,12 +51,12 @@ public class WorkItemWebService {
 	@DELETE
 	@Path("id/{id}")
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
-		if(service.findWorkItemById(id) != null) {
+		try {
 			service.deleteWorkItemById(id);
-			return Response.ok("WorkItem with id " + id + "Deleted").build();
-		} else {
-			return Response.noContent().build();
-		}		
+			return Response.status(Status.OK).entity("WorkItem with id " + id + " Deleted").build();
+		} catch (EmptyResultDataAccessException e) {
+			return Response.status(Status.NOT_FOUND).entity("Could not find workItem with id: " + id).build();
+		}
 	}
 
 	@GET
@@ -66,9 +66,9 @@ public class WorkItemWebService {
 		return Response.ok().entity(workItem).build();
 	}
 
-	@GET //TODO DOESN*T WORK AT ALL
+	@GET
 	@Path("userid/{id}")
-	public Response findAllWorkItemsByUser(@PathParam("userId") final Long userId) {
+	public Response findAllWorkItemsByUser(@PathParam("id") final Long userId) {
 		List<WorkItem> workItems = service.findAllWorkItemsByUserId(userId);
 		return Response.ok().entity(workItems).build();
 	}
@@ -96,9 +96,9 @@ public class WorkItemWebService {
 
 	@GET
 	@Path("issues")
-	public Response findAllWorkItemsWithIssue() {
+	public Response findWorkItemsWithIssue() {
 		List<WorkItem> workItems = service.findWorkItemsWithIssue();
-		return Response.ok().entity(workItems).build();
+		return Response.status(Status.OK).entity(workItems).build();
 	}
 
 	@PUT
@@ -108,12 +108,12 @@ public class WorkItemWebService {
 		if(service.findWorkItemById(workItemId) != null && (userService.findUserById(userId)) != null) {
 			WorkItem workItem = service.findWorkItemById(workItemId);
 			workItem.addUser(userService.findUserById(userId));
+			workItem.addTeam(userService.findUserById(userId).getTeam());
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
 		} else {
 			return Response.noContent().build();
-		}
-		
+		}		
 	}
 
 	@PUT
@@ -141,7 +141,6 @@ public class WorkItemWebService {
 		Issue issue = issueService.findIssueById(issueId);
 
 		workItem.setIssue(issue);
-		issue.setWorkItem(workItem);
 
 		issueService.createOrUpdateIssue(issue);
 		service.createOrUpdateWorkItem(workItem);

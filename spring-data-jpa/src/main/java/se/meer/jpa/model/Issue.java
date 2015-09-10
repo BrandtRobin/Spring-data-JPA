@@ -3,6 +3,7 @@ package se.meer.jpa.model;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tblIssues")
@@ -11,7 +12,8 @@ public class Issue extends AbstractEntity {
 	private String title;
 	private String description;
 
-	@OneToOne
+	@OneToOne()
+	@Transient
 	private WorkItem workItem;
 
 	public Issue(String title, String description) {
@@ -41,14 +43,6 @@ public class Issue extends AbstractEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public void setWorkItem(WorkItem workItem) {
-		this.workItem = workItem;
-	}
-	
-	public WorkItem getWorkItem() {
-		return workItem;
 	}
 
 }

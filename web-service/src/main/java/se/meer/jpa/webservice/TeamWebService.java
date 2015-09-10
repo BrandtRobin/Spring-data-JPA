@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.Team;
 import se.meer.jpa.service.TeamService;
+import se.meer.jpa.service.UserService;
 
 @Component
 @Path("teams")
@@ -34,6 +35,7 @@ public class TeamWebService {
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final TeamService service = getTeamService();
+	private final UserService userService = getUserService();
 
 	@POST
 	public Response createTeam(final Team team) {
@@ -47,15 +49,18 @@ public class TeamWebService {
 	@Path("id/{id}")
 	public Response deleteTeamById(@PathParam("id") final Long id) {
 		service.deleteTeamById(id);
-		return Response.ok("Team with id " + id + "deleted").build();
+		return Response.ok("Team with id " + id + " deleted").build();
 	}
 
 	@PUT
 	@Path("id/{id}") //TODO: UPDATE A TEAM THAT DOESN'T EXCIST CREATES A NEW
 	public Response updateTeamById(@PathParam("id") final Long id, final Team team) {
+		if(service.findByTeamId(id) == null) {
+			return Response.status(Status.NOT_FOUND).entity("Team with id " + id + " not found").build();
+		} 
 		team.setId(id);
 		service.createOrUpdateTeam(team);
-		return Response.ok().entity(team).build();
+		return Response.ok().entity(team).build();		
 	}
 
 	@GET
@@ -64,11 +69,17 @@ public class TeamWebService {
 		return Response.ok().entity(teams).build();
 	}
 
-	@PUT //TODO Fix error if team or user id don't exsist
+	@PUT
 	@Path("id/{teamId}/user/{userId}")
 	public Response addUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final Long userId) {
+		if(service.findByTeamId(teamId) == null) {
+			return Response.status(Status.NOT_FOUND).entity("Team with id " + teamId + " not found").build();
+		} else if(userService.findUserById(userId) == null) {
+			return Response.status(Status.NOT_FOUND).entity("User with id " + userId + " not found").build();
+		}
+		
 		service.addUserToTeam(userId, service.findByTeamId(teamId));
-		return Response.ok().build();
+		return Response.ok().entity("Added user " + userId + " to team " + teamId).build();
 	}
 
 	private TeamService getTeamService() {
@@ -76,5 +87,10 @@ public class TeamWebService {
 		context.refresh();
 		TeamService service = context.getBean(TeamService.class);
 		return service;
+	}
+	
+	private UserService getUserService() {
+		UserService userService = context.getBean(UserService.class);
+		return userService;
 	}
 }
