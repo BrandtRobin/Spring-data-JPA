@@ -67,7 +67,7 @@ public class WorkItemWebService {
 	}
 
 	@GET
-	@Path("userid/{id}")
+	@Path("user/{id}")
 	public Response findAllWorkItemsByUser(@PathParam("id") final Long userId) {
 		List<WorkItem> workItems = service.findAllWorkItemsByUserId(userId);
 		return Response.ok().entity(workItems).build();
@@ -88,7 +88,7 @@ public class WorkItemWebService {
 	}
 
 	@GET
-	@Path("teamid/{id}")
+	@Path("team/{id}")
 	public Response findAllWorkItemsByTeamId(@PathParam("id") final Long teamId) {
 		List<WorkItem> workItems = service.findAllWorkItemsByTeamId(teamId);
 		return Response.ok().entity(workItems).build();
