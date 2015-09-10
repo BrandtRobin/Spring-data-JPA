@@ -46,5 +46,9 @@ public class Issue extends AbstractEntity {
 	public void setWorkItem(WorkItem workItem) {
 		this.workItem = workItem;
 	}
+	
+	public WorkItem getWorkItem() {
+		return workItem;
+	}
 
 }
