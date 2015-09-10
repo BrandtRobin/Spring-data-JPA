@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.service.IssueService;
+import se.meer.jpa.service.WorkItemService;
 
 @Component
 @Path("issues")
@@ -30,6 +31,7 @@ public class IssueWebService {
 
 	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private final IssueService service = getIssueService();
+	private final WorkItemService workItemService = getWorkItemService();
 
 	@POST
 	public Response createIssue(final Issue issue) {
@@ -39,10 +41,15 @@ public class IssueWebService {
 		return Response.created(location).build();
 	}
 
+
+	// TODO when uppdating issue with workitem id it becomes null
+	// TODO when uppdating issue with id that dont exist in database, status
+	// code 200 ok
 	@PUT
 	@Path("id/{id}")
 	public Response updateIssueById(@PathParam("id") final Long id, final Issue issue) {
-		issue.setId(id);
+		Issue tempIssue = service.findIssueById(id);
+		issue.setId(id);	
 		service.createOrUpdateIssue(issue);
 		return Response.ok().entity(issue).build();
 	}
@@ -52,5 +59,10 @@ public class IssueWebService {
 		context.refresh();
 		IssueService service = context.getBean(IssueService.class);
 		return service;
+	}
+	
+	private WorkItemService getWorkItemService() {
+		WorkItemService workItemService = context.getBean(WorkItemService.class);
+		return workItemService;
 	}
 }
