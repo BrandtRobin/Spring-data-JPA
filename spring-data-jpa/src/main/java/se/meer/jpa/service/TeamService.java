@@ -27,7 +27,7 @@ public class TeamService {
 		return teamRepository.findOne(id);
 	}
 
-	public Long deleteTeamById(long id) { //TODO ?
+	public Long deleteTeamById(long id) {
 		List<User> users = new ArrayList<>();
 		users.addAll(userRepository.findUserByTeamId(id));
 		for (User user : users) {

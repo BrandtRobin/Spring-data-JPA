@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -40,16 +41,15 @@ public class IssueWebService {
 	}
 
 	@PUT
-	@Path("id/{id}")
+	@Path("id/{id}")	
 	public Response updateIssueById(@PathParam("id") final Long id, final Issue issue) {
 		Issue tempIssue = service.findIssueById(id);
-		if (tempIssue != null) {
-			issue.setWorkItem(tempIssue.getWorkItem());
+		if(tempIssue != null) {
 			issue.setId(id);
 			service.createOrUpdateIssue(issue);
 			return Response.ok().build();
 		} else {
-			return Response.noContent().build();
+			return Response.status(Status.NOT_FOUND).entity("Could not find issue with id: " + id).build();
 		}
 	}
 

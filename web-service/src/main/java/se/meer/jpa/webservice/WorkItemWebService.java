@@ -53,9 +53,9 @@ public class WorkItemWebService {
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
 		try {
 			service.deleteWorkItemById(id);
-			return Response.status(Status.OK).entity("WorkItem with id " + id + "Deleted").build();
+			return Response.status(Status.OK).entity("WorkItem with id " + id + " Deleted").build();
 		} catch (EmptyResultDataAccessException e) {
-			return Response.status(Status.NOT_FOUND).entity(id).build();
+			return Response.status(Status.NOT_FOUND).entity("Could not find workItem with id: " + id).build();
 		}
 	}
 
@@ -96,9 +96,9 @@ public class WorkItemWebService {
 
 	@GET
 	@Path("issues")
-	public Response findAllWorkItemsWithIssue() {
+	public Response findWorkItemsWithIssue() {
 		List<WorkItem> workItems = service.findWorkItemsWithIssue();
-		return Response.ok().entity(workItems).build();
+		return Response.status(Status.OK).entity(workItems).build();
 	}
 
 	@PUT
@@ -108,12 +108,12 @@ public class WorkItemWebService {
 		if (service.findWorkItemById(workItemId) != null && (userService.findUserById(userId)) != null) {
 			WorkItem workItem = service.findWorkItemById(workItemId);
 			workItem.addUser(userService.findUserById(userId));
+			workItem.addTeam(userService.findUserById(userId).getTeam());
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
 		} else {
 			return Response.noContent().build();
 		}
-
 	}
 
 	@PUT
@@ -141,7 +141,6 @@ public class WorkItemWebService {
 		Issue issue = issueService.findIssueById(issueId);
 
 		workItem.setIssue(issue);
-		issue.setWorkItem(workItem);
 
 		issueService.createOrUpdateIssue(issue);
 		service.createOrUpdateWorkItem(workItem);
