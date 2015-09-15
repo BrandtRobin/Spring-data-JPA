@@ -41,11 +41,12 @@ public class IssueWebService {
 	}
 
 	@PUT
-	@Path("id/{id}")	
+	@Path("id/{id}")
 	public Response updateIssueById(@PathParam("id") final Long id, final Issue issue) {
 		Issue issueUpdate = service.findIssueById(id);
-		if(issueUpdate != null) {
-			issue.setId(id);
+		if (issueUpdate != null) {
+			issueUpdate.setDescription(issue.getDescription());
+			issueUpdate.setTitle(issue.getTitle());
 			service.createOrUpdateIssue(issue);
 			return Response.ok().build();
 		} else {

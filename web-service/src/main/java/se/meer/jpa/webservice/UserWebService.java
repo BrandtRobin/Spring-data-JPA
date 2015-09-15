@@ -46,8 +46,12 @@ public final class UserWebService {
 	@PUT
 	@Path("id/{id}")
 	public Response updateUserById(@PathParam("id") final Long id, final User user) {
-		user.setId(id);
-		user.addUserNumber();
+		User userUpdate = service.findUserById(id);
+		if(userUpdate != null) {
+			userUpdate.setFirstname(user.getFirstname());
+			userUpdate.setLastname(user.getLastname());
+			userUpdate.setUsername(user.getUsername());
+		}
 		service.createOrUpdateUser(user);
 		return Response.ok().entity(user).build();
 	}

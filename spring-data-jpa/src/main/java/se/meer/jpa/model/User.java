@@ -31,7 +31,7 @@ public class User extends AbstractEntity {
 	private Team team;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	Collection<WorkItem> workItems;
+	private Collection<WorkItem> workItems;
 
 	protected User() {
 	}
@@ -43,7 +43,7 @@ public class User extends AbstractEntity {
 		this.userNumber = UUID.randomUUID().toString();
 		workItems = new ArrayList<>();
 	}
-	
+
 	public String getFirstname() {
 		return firstname;
 	}

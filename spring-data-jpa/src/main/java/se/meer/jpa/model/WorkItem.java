@@ -36,15 +36,15 @@ public class WorkItem extends AbstractEntity {
 	public Issue getIssue() {
 		return issue;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}

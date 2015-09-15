@@ -3,7 +3,6 @@ package se.meer.jpa.repository;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import se.meer.jpa.model.Team;
@@ -13,7 +12,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findUserByUsername(String username);
 
-	@Query()
 	List<User> findUserByTeam(Team team);
 
 	List<User> findByFirstname(String firstname);
@@ -25,5 +23,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Collection<? extends User> findUserByTeamId(Long id);
 
 	User findUserByUserNumber(String userNumber);
-		
+
 }

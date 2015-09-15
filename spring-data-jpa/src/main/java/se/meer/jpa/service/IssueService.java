@@ -13,10 +13,10 @@ public class IssueService {
 	public Issue createOrUpdateIssue(Issue issue) {
 		return issueRepository.save(issue);
 	}
-		
+
 	public Issue findIssueById(Long id) {
 		Issue issue = issueRepository.findOne(id);
 		return issue;
-	}	
+	}
 
 }

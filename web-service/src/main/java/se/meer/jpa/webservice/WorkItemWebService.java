@@ -119,7 +119,12 @@ public class WorkItemWebService {
 	@PUT
 	@Path("id/{id}")
 	public Response updateWorkItemById(@PathParam("id") final Long id, WorkItem workItem) {
-		workItem.setId(id);
+		WorkItem workItemUpdate = service.findWorkItemById(id);
+		if(workItemUpdate != null) {
+			workItemUpdate.setDescription(workItem.getDescription());
+			workItemUpdate.setStatus(workItem.getStatus());
+			workItemUpdate.setTitle(workItem.getTitle());
+		}
 		service.updateWorkItemById(id, workItem);
 		return Response.ok().entity(workItem).build();
 	}

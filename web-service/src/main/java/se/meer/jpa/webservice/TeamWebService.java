@@ -55,10 +55,11 @@ public class TeamWebService {
 	@PUT
 	@Path("id/{id}")
 	public Response updateTeamById(@PathParam("id") final Long id, final Team team) {
-		if (service.findByTeamId(id) == null) {
+		Team teamUpdate = service.findByTeamId(id);
+		if (teamUpdate == null) {
 			return Response.status(Status.NOT_FOUND).entity("Team with id " + id + " not found").build();
 		}
-		team.setId(id);
+		teamUpdate.setTeamName(team.getTeamName());
 		service.createOrUpdateTeam(team);
 		return Response.ok().entity(team).build();
 	}
