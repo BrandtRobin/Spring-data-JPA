@@ -1,6 +1,7 @@
 package se.meer.jpa.webservice;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -120,7 +121,7 @@ public class WorkItemWebService {
 	@Path("id/{id}")
 	public Response updateWorkItemById(@PathParam("id") final Long id, WorkItem workItem) {
 		WorkItem workItemUpdate = service.findWorkItemById(id);
-		if(workItemUpdate != null) {
+		if (workItemUpdate != null) {
 			workItemUpdate.setDescription(workItem.getDescription());
 			workItemUpdate.setStatus(workItem.getStatus());
 			workItemUpdate.setTitle(workItem.getTitle());
@@ -150,6 +151,17 @@ public class WorkItemWebService {
 		issueService.createOrUpdateIssue(issue);
 		service.createOrUpdateWorkItem(workItem);
 		return Response.ok().build();
+	}
+
+	@GET
+	@Path("{status}/{dateFrom}/{dateTo}")
+	public Response findByStatusAndDateRange(@PathParam("status") final String status,
+											 @PathParam("dateFrom") final String dateFrom, 
+											 @PathParam("dateTo") final String dateTo) {
+		final List<WorkItem> workItems = service.findByStatusAndDateRange(status, LocalDate.parse(dateFrom),
+				LocalDate.parse(dateTo));
+		
+		return Response.ok().entity(workItems).build();
 	}
 
 	private WorkItemService getWorkItemService() {

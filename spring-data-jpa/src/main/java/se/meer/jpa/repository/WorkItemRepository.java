@@ -1,5 +1,6 @@
 package se.meer.jpa.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -27,4 +28,8 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 	List<WorkItem> findAllWorkItemsByUserId(Long id);
 
 	List<WorkItem> findAllWorkItemsByTeamId(Long id);
+	
+	List<WorkItem> findByStatusAndCreatedBetween(String status, LocalDate dateFrom, LocalDate dateTo);
+	
+	List<WorkItem> findByCreatedBetween(LocalDate dateFrom, LocalDate dateTo);
 }

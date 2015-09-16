@@ -1,5 +1,6 @@
 package se.meer.jpa.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,13 @@ public class WorkItemService {
 
 	public List<WorkItem> findWorkItemsWithIssue() {
 		return workItemRepository.findByIssueIdNotNull();
+	}
+
+	public List<WorkItem> findByStatusAndDateRange(String status, LocalDate dateFrom, LocalDate dateTo) {
+		return workItemRepository.findByStatusAndCreatedBetween(status, dateFrom, dateTo);
+	}
+
+	public List<WorkItem> findByCreatedBetween(LocalDate dateFrom, LocalDate dateTo) {
+		return workItemRepository.findByCreatedBetween(dateFrom, dateTo);
 	}
 }
