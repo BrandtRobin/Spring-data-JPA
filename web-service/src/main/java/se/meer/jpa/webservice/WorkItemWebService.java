@@ -20,6 +20,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.WorkItem;
@@ -160,8 +162,14 @@ public class WorkItemWebService {
 											 @PathParam("dateTo") final String dateTo) {
 		final List<WorkItem> workItems = service.findByStatusAndDateRange(status, LocalDate.parse(dateFrom),
 				LocalDate.parse(dateTo));
-		
 		return Response.ok().entity(workItems).build();
+	}
+	
+	@GET
+	@Path("{page}/{size}")
+	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
+		final Page<WorkItem> workItems = service.findAll(new PageRequest(page, size));
+		return Response.ok().entity(workItems.getContent()).build();
 	}
 
 	private WorkItemService getWorkItemService() {

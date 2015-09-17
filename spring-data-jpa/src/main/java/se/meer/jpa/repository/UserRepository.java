@@ -3,6 +3,8 @@ package se.meer.jpa.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import se.meer.jpa.model.Team;
@@ -23,5 +25,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Collection<? extends User> findUserByTeamId(Long id);
 
 	User findUserByUserNumber(String userNumber);
+	
+	Page<User> findAll(Pageable pageable);
 
 }

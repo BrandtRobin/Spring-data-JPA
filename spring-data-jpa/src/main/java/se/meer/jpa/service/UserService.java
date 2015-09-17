@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import se.meer.jpa.model.Team;
@@ -60,6 +62,10 @@ public class UserService {
 	public User deleteUser(User user) {
 		userRepository.delete(user);
 		return user;
+	}
+	
+	public Page<User> findAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 
 }

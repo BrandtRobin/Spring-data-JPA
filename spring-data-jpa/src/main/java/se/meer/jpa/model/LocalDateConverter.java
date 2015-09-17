@@ -1,8 +1,7 @@
 package se.meer.jpa.model;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -3,6 +3,8 @@ package se.meer.jpa.repository;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import se.meer.jpa.model.Team;
@@ -32,4 +34,6 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 	List<WorkItem> findByStatusAndCreatedBetween(String status, LocalDate dateFrom, LocalDate dateTo);
 	
 	List<WorkItem> findByCreatedBetween(LocalDate dateFrom, LocalDate dateTo);
+	
+	Page<WorkItem> findAll(Pageable pageable);
 }

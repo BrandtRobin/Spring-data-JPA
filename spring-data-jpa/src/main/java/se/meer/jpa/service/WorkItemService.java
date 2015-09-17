@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
@@ -66,5 +68,9 @@ public class WorkItemService {
 
 	public List<WorkItem> findByCreatedBetween(LocalDate dateFrom, LocalDate dateTo) {
 		return workItemRepository.findByCreatedBetween(dateFrom, dateTo);
+	}
+
+	public Page<WorkItem> findAll(Pageable pageable) {
+		return workItemRepository.findAll(pageable);
 	}
 }

@@ -3,6 +3,7 @@ package se.meer.jpa.webservice;
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -15,6 +16,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.Issue;
@@ -52,6 +55,13 @@ public class IssueWebService {
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Could not find issue with id: " + id).build();
 		}
+	}
+	
+	@GET
+	@Path("{page}/{size}")
+	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
+		final Page<Issue> issues = service.findAll(new PageRequest(page, size));
+		return Response.ok().entity(issues.getContent()).build();
 	}
 
 	private IssueService getIssueService() {

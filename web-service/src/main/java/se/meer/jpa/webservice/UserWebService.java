@@ -19,6 +19,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
@@ -107,6 +109,13 @@ public final class UserWebService {
 	public Response findAllUsersInTeam(@PathParam("teamId") final Long teamId) {
 		List<User> users = service.findUsersByTeamId(teamId);
 		return Response.ok().entity(users).build();
+	}
+	
+	@GET
+	@Path("{page}/{size}")
+	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
+		final Page<User> users = service.findAll(new PageRequest(page, size));
+		return Response.ok().entity(users.getContent()).build();
 	}
 
 	public UserService getUserService() {
