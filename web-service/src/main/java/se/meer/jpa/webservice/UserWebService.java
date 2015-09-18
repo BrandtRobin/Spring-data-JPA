@@ -112,7 +112,7 @@ public final class UserWebService {
 	}
 	
 	@GET
-	@Path("{page}/{size}")
+	@Path("{size}/{page}")
 	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
 		final Page<User> users = service.findAll(new PageRequest(page, size));
 		return Response.ok().entity(users.getContent()).build();

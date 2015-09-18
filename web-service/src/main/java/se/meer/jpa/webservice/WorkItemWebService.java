@@ -166,7 +166,7 @@ public class WorkItemWebService {
 	}
 	
 	@GET
-	@Path("{page}/{size}")
+	@Path("{size}/{page}")
 	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
 		final Page<WorkItem> workItems = service.findAll(new PageRequest(page, size));
 		return Response.ok().entity(workItems.getContent()).build();

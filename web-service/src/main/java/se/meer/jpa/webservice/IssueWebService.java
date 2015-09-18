@@ -58,7 +58,7 @@ public class IssueWebService {
 	}
 	
 	@GET
-	@Path("{page}/{size}")
+	@Path("{size}/{page}")
 	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
 		final Page<Issue> issues = service.findAll(new PageRequest(page, size));
 		return Response.ok().entity(issues.getContent()).build();
