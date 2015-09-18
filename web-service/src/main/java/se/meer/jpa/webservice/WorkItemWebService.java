@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -21,7 +22,6 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.WorkItem;
@@ -156,10 +156,9 @@ public class WorkItemWebService {
 	}
 
 	@GET
-	@Path("{status}/{dateFrom}/{dateTo}")
-	public Response findByStatusAndDateRange(@PathParam("status") final String status,
-											 @PathParam("dateFrom") final String dateFrom, 
-											 @PathParam("dateTo") final String dateTo) {
+	public Response findByStatusAndDateRange(@QueryParam("status") final String status,
+											 @QueryParam("dateFrom") final String dateFrom, 
+											 @QueryParam("dateTo") final String dateTo) {
 		final List<WorkItem> workItems = service.findByStatusAndDateRange(status, LocalDate.parse(dateFrom),
 				LocalDate.parse(dateTo));
 		return Response.ok().entity(workItems).build();
@@ -168,7 +167,7 @@ public class WorkItemWebService {
 	@GET
 	@Path("{size}/{page}")
 	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
-		final Page<WorkItem> workItems = service.findAll(new PageRequest(page, size));
+		final Page<WorkItem> workItems = service.findAll(page, size);
 		return Response.ok().entity(workItems.getContent()).build();
 	}
 

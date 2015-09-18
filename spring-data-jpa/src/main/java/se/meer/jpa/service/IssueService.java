@@ -2,7 +2,7 @@ package se.meer.jpa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.repository.IssueRepository;
@@ -21,8 +21,8 @@ public class IssueService {
 		return issue;
 	}
 	
-	public Page<Issue> findAll(Pageable pageable) {
-		return issueRepository.findAll(pageable);
+	public Page<Issue> findAll(int size, int page) {
+		return issueRepository.findAll(new PageRequest(size, page));
 	}
 
 }

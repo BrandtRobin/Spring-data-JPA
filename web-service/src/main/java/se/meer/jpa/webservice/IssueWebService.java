@@ -17,7 +17,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.Issue;
@@ -60,7 +59,7 @@ public class IssueWebService {
 	@GET
 	@Path("{size}/{page}")
 	public Response findAll(@PathParam("page") final int page, @PathParam("size") final int size){
-		final Page<Issue> issues = service.findAll(new PageRequest(page, size));
+		final Page<Issue> issues = service.findAll(page, size);
 		return Response.ok().entity(issues.getContent()).build();
 	}
 

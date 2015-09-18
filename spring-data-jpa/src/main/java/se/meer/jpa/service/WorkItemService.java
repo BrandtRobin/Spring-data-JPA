@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
@@ -70,7 +70,8 @@ public class WorkItemService {
 		return workItemRepository.findByCreatedBetween(dateFrom, dateTo);
 	}
 
-	public Page<WorkItem> findAll(Pageable pageable) {
-		return workItemRepository.findAll(pageable);
+	public Page<WorkItem> findAll(int size, int page) {
+		return workItemRepository.findAll(new PageRequest(size, page));
 	}
+
 }
