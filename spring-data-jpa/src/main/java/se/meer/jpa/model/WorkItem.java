@@ -72,4 +72,5 @@ public class WorkItem extends AbstractEntity {
 	public void addTeam(Team team) {
 		this.team = team;
 	}
+
 }

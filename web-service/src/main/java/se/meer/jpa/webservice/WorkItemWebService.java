@@ -3,6 +3,7 @@ package se.meer.jpa.webservice;
 import java.net.URI;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,8 +22,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import se.meer.jpa.model.Issue;
+import se.meer.jpa.model.Team;
 import se.meer.jpa.model.WorkItem;
 import se.meer.jpa.service.IssueService;
+import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
@@ -39,6 +42,7 @@ public class WorkItemWebService {
 	private final WorkItemService service = getWorkItemService();
 	private final UserService userService = getUserService();
 	private final IssueService issueService = getIssueService();
+	private final TeamService teamService = getTeamService();
 
 	@POST
 	public Response createWorkItem(final WorkItem workItem) {
@@ -137,6 +141,16 @@ public class WorkItemWebService {
 		service.createOrUpdateWorkItem(workItem);
 		return Response.ok().build();
 	}
+	
+	@PUT
+	@Path("id/{workItemId}/team/{teamId}")
+	public Response addTeamToWorkItem(@PathParam("workItemId") final Long workItemId, 
+			@PathParam("teamId") final Long teamId) {
+		WorkItem workItem = service.findWorkItemById(workItemId);
+		Team team = teamService.findByTeamId(teamId);
+		workItem.addTeam(team);
+		return Response.ok().build();
+	}
 
 	@PUT
 	@Path("id/{workItemId}/issue/{issueId}")
@@ -167,6 +181,11 @@ public class WorkItemWebService {
 	private UserService getUserService() {
 		UserService userService = context.getBean(UserService.class);
 		return userService;
+	}
+	
+	private TeamService getTeamService() {
+		TeamService teamService = context.getBean(TeamService.class);
+		return teamService;
 	}
 
 }
