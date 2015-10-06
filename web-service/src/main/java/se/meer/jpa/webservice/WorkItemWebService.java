@@ -148,6 +148,7 @@ public class WorkItemWebService {
 		WorkItem workItem = service.findWorkItemById(workItemId);
 		Team team = teamService.findByTeamId(teamId);
 		workItem.addTeam(team);
+		service.createOrUpdateWorkItem(workItem);
 		return Response.ok().build();
 	}
 
