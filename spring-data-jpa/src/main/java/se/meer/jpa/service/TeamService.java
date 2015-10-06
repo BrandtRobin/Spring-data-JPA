@@ -18,7 +18,7 @@ public class TeamService {
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	public Team createOrUpdateTeam(Team team) {
 		return teamRepository.save(team);
 	}
