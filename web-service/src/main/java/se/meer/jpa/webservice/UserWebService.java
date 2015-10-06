@@ -31,8 +31,14 @@ public final class UserWebService {
 	@Context
 	private UriInfo uriInfo;
 
-	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private final UserService service = getUserService();
+	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static UserService service = new UserService();
+	
+	static {
+		context.scan("se.meer.jpa.config");
+		context.refresh();
+		service = context.getBean(UserService.class);
+	}
 
 	@POST
 	public Response createUser(final User user) {
@@ -107,12 +113,5 @@ public final class UserWebService {
 	public Response findAllUsersInTeam(@PathParam("teamId") final Long teamId) {
 		List<User> users = service.findUsersByTeamId(teamId);
 		return Response.ok().entity(users).build();
-	}
-
-	public UserService getUserService() {
-		context.scan("se.meer.jpa.config");
-		context.refresh();
-		UserService service = context.getBean(UserService.class);
-		return service;
 	}
 }

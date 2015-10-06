@@ -37,11 +37,20 @@ public class WorkItemWebService {
 	@Context
 	private UriInfo uriInfo;
 
-	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private final WorkItemService service = getWorkItemService();
-	private final UserService userService = getUserService();
-	private final IssueService issueService = getIssueService();
-	private final TeamService teamService = getTeamService();
+	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static WorkItemService service = new WorkItemService();
+	private static UserService userService = new UserService();
+	private static IssueService issueService = new IssueService();
+	private static TeamService teamService = new TeamService();
+	
+	static {
+		context.scan("se.meer.jpa.config");
+		context.refresh();
+		service = context.getBean(WorkItemService.class);
+		userService = context.getBean(UserService.class);
+		issueService = context.getBean(IssueService.class);
+		teamService = context.getBean(TeamService.class);
+	}
 
 	@POST
 	public Response createWorkItem(final WorkItem workItem) {
@@ -131,7 +140,8 @@ public class WorkItemWebService {
 		service.updateWorkItemById(id, workItem);
 		return Response.ok().entity(workItem).build();
 	}
-
+	
+	//TODO: CHANGE NAME TO addStatusToWorkItem
 	@PUT
 	@Path("id/{id}/status")
 	public Response updateIssueOnWorkItem(@PathParam("id") final Long id, String status) {
@@ -165,27 +175,4 @@ public class WorkItemWebService {
 		service.createOrUpdateWorkItem(workItem);
 		return Response.ok().build();
 	}
-
-	private WorkItemService getWorkItemService() {
-		context.scan("se.meer.jpa.config");
-		context.refresh();
-		WorkItemService service = context.getBean(WorkItemService.class);
-		return service;
-	}
-
-	private IssueService getIssueService() {
-		IssueService issueService = context.getBean(IssueService.class);
-		return issueService;
-	}
-
-	private UserService getUserService() {
-		UserService userService = context.getBean(UserService.class);
-		return userService;
-	}
-	
-	private TeamService getTeamService() {
-		TeamService teamService = context.getBean(TeamService.class);
-		return teamService;
-	}
-
 }

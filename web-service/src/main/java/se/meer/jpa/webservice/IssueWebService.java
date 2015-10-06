@@ -19,6 +19,9 @@ import org.springframework.stereotype.Component;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.service.IssueService;
+import se.meer.jpa.service.TeamService;
+import se.meer.jpa.service.UserService;
+import se.meer.jpa.service.WorkItemService;
 
 @Component
 @Path("issues")
@@ -29,8 +32,14 @@ public class IssueWebService {
 	@Context
 	private UriInfo uriInfo;
 
-	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private final IssueService service = getIssueService();
+	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static IssueService service = new IssueService();
+
+	static {
+		context.scan("se.meer.jpa.config");
+		context.refresh();
+		service = context.getBean(IssueService.class);
+	}
 
 	@POST
 	public Response createIssue(final Issue issue) {
@@ -52,12 +61,5 @@ public class IssueWebService {
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Could not find issue with id: " + id).build();
 		}
-	}
-
-	private IssueService getIssueService() {
-		context.scan("se.meer.jpa.config");
-		context.refresh();
-		IssueService service = context.getBean(IssueService.class);
-		return service;
 	}
 }

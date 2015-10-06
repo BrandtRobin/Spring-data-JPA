@@ -33,9 +33,16 @@ public class TeamWebService {
 	@Context
 	private UriInfo uriInfo;
 
-	private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private final TeamService service = getTeamService();
-	private final UserService userService = getUserService();
+	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static TeamService service = new TeamService();
+	private static UserService userService = new UserService();
+	
+	static {
+		context.scan("se.meer.jpa.config");
+		context.refresh();
+		service = context.getBean(TeamService.class);
+		userService = context.getBean(UserService.class);
+	}
 
 	@POST
 	public Response createTeam(final Team team) {
@@ -81,17 +88,5 @@ public class TeamWebService {
 
 		service.addUserToTeam(userId, service.findByTeamId(teamId));
 		return Response.ok().entity("Added user " + userId + " to team " + teamId).build();
-	}
-
-	private TeamService getTeamService() {
-		context.scan("se.meer.jpa.config");
-		context.refresh();
-		TeamService service = context.getBean(TeamService.class);
-		return service;
-	}
-
-	private UserService getUserService() {
-		UserService userService = context.getBean(UserService.class);
-		return userService;
 	}
 }
