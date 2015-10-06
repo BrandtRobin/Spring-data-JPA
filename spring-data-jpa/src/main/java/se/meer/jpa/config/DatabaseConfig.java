@@ -31,6 +31,9 @@ public class DatabaseConfig {
 		config.setUsername("root");
 		config.setPassword("");
 		config.setMinimumIdle(2);
+		config.setMaximumPoolSize(10);
+
+		
 
 		return new HikariDataSource(config);
 	}
