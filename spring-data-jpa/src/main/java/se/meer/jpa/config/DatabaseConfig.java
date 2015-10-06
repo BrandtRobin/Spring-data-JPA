@@ -30,6 +30,7 @@ public class DatabaseConfig {
 		config.setJdbcUrl("jdbc:mysql://127.0.0.1:3307/meer-spring-jpa");
 		config.setUsername("root");
 		config.setPassword("");
+		config.setMinimumIdle(2);
 
 		return new HikariDataSource(config);
 	}
