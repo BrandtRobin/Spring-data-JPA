@@ -30,6 +30,7 @@ public class DatabaseConfig {
 		config.setJdbcUrl("jdbc:mysql://127.0.0.1:3307/meer-spring-jpa");
 		config.setUsername("root");
 		config.setPassword("");
+		config.setMaximumPoolSize(10);
 		config.setMinimumIdle(2);
 		config.setMaximumPoolSize(10);
 
