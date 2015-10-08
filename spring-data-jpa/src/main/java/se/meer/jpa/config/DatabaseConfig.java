@@ -32,7 +32,6 @@ public class DatabaseConfig {
 		config.setPassword("");
 		config.setMaximumPoolSize(10);
 		config.setMinimumIdle(2);
-		config.setMaximumPoolSize(10);
 
 		
 
