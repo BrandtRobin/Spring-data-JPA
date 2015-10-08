@@ -65,7 +65,7 @@ public class WorkItemWebService {
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
 		try {
 			service.deleteWorkItemById(id);
-			return Response.status(Status.OK).entity("WorkItem with id " + id + " Deleted").build();
+			return Response.ok().build();
 		} catch (EmptyResultDataAccessException e) {
 			return Response.status(Status.NOT_FOUND).entity("Could not find workItem with id: " + id).build();
 		}
