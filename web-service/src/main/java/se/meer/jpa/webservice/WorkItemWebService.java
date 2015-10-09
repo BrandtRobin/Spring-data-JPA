@@ -137,7 +137,7 @@ public class WorkItemWebService {
 			workItemUpdate.setStatus(workItem.getStatus());
 			workItemUpdate.setTitle(workItem.getTitle());
 		}
-		service.updateWorkItemById(id, workItem);
+		service.updateWorkItemById(id, workItemUpdate);
 		return Response.ok().entity(workItem).build();
 	}
 	
