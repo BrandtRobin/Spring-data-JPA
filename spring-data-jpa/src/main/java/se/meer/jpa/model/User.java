@@ -60,9 +60,9 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
-	public Collection<WorkItem> getWorkItems() {
-		return workItems;
-	}
+//	public Collection<WorkItem> getWorkItems() {
+//		return workItems;
+//	}
 
 	public User setTeam(Team team) {
 		this.team = team;
@@ -98,8 +98,8 @@ public class User extends AbstractEntity {
 		this.userNumber = userNumber;
 	}
 
-	public void setWorkItems(Collection<WorkItem> workItems) {
-		this.workItems = workItems;
-	}
+//	public void setWorkItems(Collection<WorkItem> workItems) {
+//		this.workItems = workItems;
+//	}
 
 }

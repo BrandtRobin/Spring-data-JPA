@@ -24,6 +24,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 
 import se.meer.jpa.model.Issue;
+import se.meer.jpa.model.User;
 import se.meer.jpa.model.WorkItem;
 import se.meer.jpa.service.IssueService;
 import se.meer.jpa.service.UserService;
@@ -110,8 +111,10 @@ public class WorkItemWebService {
 			@PathParam("userId") final Long userId) {
 		if (service.findWorkItemById(workItemId) != null && (userService.findUserById(userId)) != null) {
 			WorkItem workItem = service.findWorkItemById(workItemId);
-			workItem.addUser(userService.findUserById(userId));
-			workItem.addTeam(userService.findUserById(userId).getTeam());
+			User user = userService.findUserById(userId);
+			workItem.addUser(user);
+			workItem.addTeam(user.getTeam());
+			workItem.addUsers(user);
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
 		} else {
