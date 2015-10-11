@@ -24,9 +24,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 
 import se.meer.jpa.model.Issue;
+import se.meer.jpa.model.Team;
 import se.meer.jpa.model.User;
 import se.meer.jpa.model.WorkItem;
 import se.meer.jpa.service.IssueService;
+import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
@@ -43,6 +45,7 @@ public class WorkItemWebService {
 	private final WorkItemService service = getWorkItemService();
 	private final UserService userService = getUserService();
 	private final IssueService issueService = getIssueService();
+	private final TeamService teamService = getTeamService();
 
 	@POST
 	public Response createWorkItem(final WorkItem workItem) {
@@ -57,9 +60,9 @@ public class WorkItemWebService {
 	public Response deleteWorkItemById(@PathParam("id") final Long id) {
 		try {
 			service.deleteWorkItemById(id);
-			return Response.status(Status.OK).entity("WorkItem with id " + id + " Deleted").build();
+			return Response.status(Status.OK).build();
 		} catch (EmptyResultDataAccessException e) {
-			return Response.status(Status.NOT_FOUND).entity("Could not find workItem with id: " + id).build();
+			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
 
@@ -145,6 +148,17 @@ public class WorkItemWebService {
 	}
 
 	@PUT
+	@Path("id/{workItemId}/team/{teamId}")
+	public Response addTeamToWorkItem(@PathParam("workItemId") final Long workItemId, 
+			@PathParam("teamId") final Long teamId) {
+		WorkItem workItem = service.findWorkItemById(workItemId);
+		Team team = teamService.findByTeamId(teamId);
+		workItem.addTeam(team);
+		service.createOrUpdateWorkItem(workItem);
+		return Response.ok().build();
+	}
+	
+	@PUT
 	@Path("id/{workItemId}/issue/{issueId}")
 	public Response addIssueToWorkItem(@PathParam("workItemId") final Long workItemId,
 			@PathParam("issueId") final Long issueId) {
@@ -188,6 +202,11 @@ public class WorkItemWebService {
 	private UserService getUserService() {
 		UserService userService = context.getBean(UserService.class);
 		return userService;
+	}
+	
+	private TeamService getTeamService() {
+		TeamService teamService = context.getBean(TeamService.class);
+		return teamService;
 	}
 
 }

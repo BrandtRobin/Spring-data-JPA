@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
 	@JoinColumn(name = "team_id")
 	private Team team;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<WorkItem> workItems;
 
 	protected User() {
@@ -60,9 +60,9 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
-//	public Collection<WorkItem> getWorkItems() {
-//		return workItems;
-//	}
+	public Collection<WorkItem> getWorkItems() {
+		return workItems;
+	}
 
 	public User setTeam(Team team) {
 		this.team = team;
