@@ -77,13 +77,17 @@ public class WorkItem extends AbstractEntity {
 	public void addUsers(User user) {
 		users.add(user);
 	}
-
-	public void addTeam(Team team) {
-		this.team = team;
+	
+	public Collection<User> getUsers() {
+		return users;
 	}
 	
 	public void setUsers(Collection<User> users) {
 		this.users = users;
+	}
+
+	public void addTeam(Team team) {
+		this.team = team;
 	}
 
 }
