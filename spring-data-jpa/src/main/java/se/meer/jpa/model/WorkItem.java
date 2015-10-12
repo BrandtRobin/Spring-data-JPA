@@ -1,6 +1,9 @@
 package se.meer.jpa.model;
 
+import java.util.Collection;
+
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -14,7 +17,10 @@ public class WorkItem extends AbstractEntity {
 	private String title;
 	private String description;
 	private String status;
-
+	
+	@ElementCollection(targetClass = User.class, fetch =FetchType.EAGER)
+	private Collection<User> users;
+	
 	@ManyToOne
 	private User user;
 
@@ -67,6 +73,18 @@ public class WorkItem extends AbstractEntity {
 
 	public void addUser(User user) {
 		this.user = user;
+	}
+	
+	public void addUsers(User user) {
+		users.add(user);
+	}
+	
+	public Collection<User> getUsers() {
+		return users;
+	}
+	
+	public void setUsers(Collection<User> users) {
+		this.users = users;
 	}
 
 	public void addTeam(Team team) {
