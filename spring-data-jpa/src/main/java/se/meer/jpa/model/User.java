@@ -44,7 +44,7 @@ public class User extends AbstractEntity {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = userName;
-		this.password = PasswordHash.createHash(password);
+		this.password = setPassword(password);
 		this.userNumber = UUID.randomUUID().toString();
 		workItems = new ArrayList<>();
 	}
@@ -109,6 +109,10 @@ public class User extends AbstractEntity {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String setPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		return this.password = PasswordHash.createHash(password);
 	}
 
 }
