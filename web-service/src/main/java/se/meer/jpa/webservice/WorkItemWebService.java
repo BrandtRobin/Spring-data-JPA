@@ -123,7 +123,6 @@ public class WorkItemWebService {
 			User user = userService.findUserById(userId);
 			workItem.addUser(user);
 			workItem.addTeam(user.getTeam());
-			workItem.addUsers(user);
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
 		} else {

@@ -17,8 +17,6 @@ public class WorkItem extends AbstractEntity {
 	private String title;
 	private String description;
 	private String status;
-	@ElementCollection(targetClass=User.class, fetch = FetchType.EAGER)
-	private Collection<User> users;
 
 	@ManyToOne
 	private User user;
@@ -74,20 +72,15 @@ public class WorkItem extends AbstractEntity {
 		this.user = user;
 	}
 	
-	public void addUsers(User user) {
-		users.add(user);
-	}
-	
-	public Collection<User> getUsers() {
-		return users;
-	}
-	
-	public void setUsers(Collection<User> users) {
-		this.users = users;
-	}
-
 	public void addTeam(Team team) {
 		this.team = team;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
