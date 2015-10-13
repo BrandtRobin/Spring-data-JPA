@@ -45,10 +45,10 @@ public class UserService {
 		users.addAll(userRepository.findUserByTeam(team));
 		return users;
 	}
-
+	
 	public List<User> findUsersByTeamId(Long id) {
 		List<User> users = new ArrayList<>();
-		users.addAll(userRepository.findUserByTeamId(id));
+		users.addAll(userRepository.findUsersByTeamId(id));
 		return users;
 	}
 
