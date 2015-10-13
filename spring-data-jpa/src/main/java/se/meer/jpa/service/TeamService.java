@@ -29,7 +29,7 @@ public class TeamService {
 
 	public Long deleteTeamById(long id) {
 		List<User> users = new ArrayList<>();
-		users.addAll(userRepository.findUserByTeamId(id));
+		users.addAll(userRepository.findUsersByTeamId(id));
 		for (User user : users) {
 			user.setTeam(null);
 			userRepository.save(user);
