@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "tblUsers")
 public class User extends AbstractEntity {
@@ -25,6 +26,7 @@ public class User extends AbstractEntity {
 	private String userNumber;
 	@Column
 	private String username;
+	private String password;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "team_id")
@@ -36,10 +38,11 @@ public class User extends AbstractEntity {
 	protected User() {
 	}
 
-	public User(String firstname, String lastname, String userName) {
+	public User(String firstname, String lastname, String userName, String password) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = userName;
+		this.password = password;
 		this.userNumber = UUID.randomUUID().toString();
 		workItems = new ArrayList<>();
 	}
@@ -102,4 +105,7 @@ public class User extends AbstractEntity {
 //		this.workItems = workItems;
 //	}
 
+	public String getPassword() {
+		return password;
+	}
 }
