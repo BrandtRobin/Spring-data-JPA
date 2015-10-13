@@ -2,18 +2,15 @@ package se.meer.jpa.model;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import se.meer.jpa.PasswordHash;
 
 @Entity
@@ -34,9 +31,6 @@ public class User extends AbstractEntity {
 	@JoinColumn(name = "team_id")
 	private Team team;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private Collection<WorkItem> workItems;
-
 	protected User() {
 	}
 
@@ -46,7 +40,6 @@ public class User extends AbstractEntity {
 		this.username = userName;
 		this.password = setPassword(password);
 		this.userNumber = UUID.randomUUID().toString();
-		workItems = new ArrayList<>();
 	}
 
 	public String getFirstname() {
@@ -65,18 +58,9 @@ public class User extends AbstractEntity {
 		return team;
 	}
 
-	public Collection<WorkItem> getWorkItems() {
-		return workItems;
-	}
-
 	public User setTeam(Team team) {
 		this.team = team;
 		return this;
-	}
-
-	public WorkItem addWorkItem(WorkItem workItem) {
-		workItems.add(workItem);
-		return workItem;
 	}
 
 	public void setFirstname(String firstname) {
@@ -102,10 +86,6 @@ public class User extends AbstractEntity {
 	public void setUserNumber(String userNumber) {
 		this.userNumber = userNumber;
 	}
-
-//	public void setWorkItems(Collection<WorkItem> workItems) {
-//		this.workItems = workItems;
-//	}
 	
 	public String getPassword() {
 		return password;
