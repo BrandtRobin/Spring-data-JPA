@@ -1,5 +1,7 @@
 package se.meer.jpa.model;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import se.meer.jpa.PasswordHash;
 
 @Entity
 @Table(name = "tblUsers")
@@ -25,6 +28,7 @@ public class User extends AbstractEntity {
 	private String userNumber;
 	@Column
 	private String username;
+	private String password;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "team_id")
@@ -36,10 +40,11 @@ public class User extends AbstractEntity {
 	protected User() {
 	}
 
-	public User(String firstname, String lastname, String userName) {
+	public User(String firstname, String lastname, String userName, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = userName;
+		this.password = PasswordHash.createHash(password);
 		this.userNumber = UUID.randomUUID().toString();
 		workItems = new ArrayList<>();
 	}
@@ -101,5 +106,9 @@ public class User extends AbstractEntity {
 //	public void setWorkItems(Collection<WorkItem> workItems) {
 //		this.workItems = workItems;
 //	}
+	
+	public String getPassword() {
+		return password;
+	}
 
 }
