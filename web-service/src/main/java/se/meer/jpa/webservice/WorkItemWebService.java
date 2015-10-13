@@ -121,7 +121,7 @@ public class WorkItemWebService {
 		if (service.findWorkItemById(workItemId) != null && (userService.findUserById(userId)) != null) {
 			WorkItem workItem = service.findWorkItemById(workItemId);
 			User user = userService.findUserById(userId);
-			workItem.addUser(user);
+			workItem.setUser(user);
 			workItem.addTeam(user.getTeam());
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
