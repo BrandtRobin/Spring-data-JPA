@@ -21,7 +21,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
 
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.model.Team;
@@ -117,7 +116,6 @@ public class WorkItemWebService {
 			User user = userService.findUserById(userId);
 			workItem.addUser(user);
 			workItem.addTeam(user.getTeam());
-			workItem.addUsers(user);
 			service.createOrUpdateWorkItem(workItem);
 			return Response.ok().build();
 		} else {
