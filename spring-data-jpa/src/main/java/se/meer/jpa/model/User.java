@@ -105,9 +105,9 @@ public class User extends AbstractEntity {
 		this.userNumber = userNumber;
 	}
 
-	public void setWorkItems(Collection<WorkItem> workItems) {
-		this.workItems = workItems;
-	}
+//	public void setWorkItems(Collection<WorkItem> workItems) {
+//		this.workItems = workItems;
+//	}
 
 	public String getPassword() {
 		return password;
