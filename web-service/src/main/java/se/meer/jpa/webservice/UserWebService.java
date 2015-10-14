@@ -104,7 +104,7 @@ public final class UserWebService {
 	@GET
 	@Path("/username/{username}")
 	public Response findUserByUsername(@PathParam("username") final String username) {
-		final List<User> user = service.findUserByUsername(username);
+		final User user = service.findUserByUsername(username);
 		return Response.ok().entity(user).build();
 	}
 
