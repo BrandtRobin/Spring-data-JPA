@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import se.meer.jpa.service.IssueService;
 import se.meer.jpa.service.TeamService;
+import se.meer.jpa.service.TokenService;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
@@ -29,5 +30,10 @@ public class ServiceConfig {
 	@Bean
 	public IssueService issueService() {
 		return new IssueService();
+	}
+	
+	@Bean
+	public TokenService tokenService() {
+		return new TokenService();
 	}
 }

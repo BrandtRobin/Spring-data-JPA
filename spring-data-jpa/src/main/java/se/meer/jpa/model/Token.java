@@ -1,27 +1,36 @@
 package se.meer.jpa.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class Token implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-	private String authId;
+@Entity
+public class Token extends AbstractEntity implements Serializable {
+
+	@Column(unique = true)
+	private String username;
+	@Column(unique = true)
 	private String authToken;
+	private LocalDateTime timeStamp;
 
 	public Token() {
 	}
 
-	public Token(String authId, String authToken) {
-		this.authId = authId;
-		this.authToken = authToken;
+	public Token(String username, String authToken) {
+		this.username = username;
+		this.authToken = "REEM " + authToken;
+		this.timeStamp = LocalDateTime.now();
 
 	}
 
-	public String getAuthId() {
-		return authId;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setAuthId(String authId) {
-		this.authId = authId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getAuthToken() {
@@ -30,5 +39,13 @@ public class Token implements Serializable {
 
 	public void setAuthToken(String authToken) {
 		this.authToken = authToken;
+	}
+	
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+	
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 }

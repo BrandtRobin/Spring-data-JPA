@@ -1,4 +1,4 @@
-package se.meer.jpa.corsfilter;
+package se.meer.jpa.filter;
 
 import java.io.IOException;
 
