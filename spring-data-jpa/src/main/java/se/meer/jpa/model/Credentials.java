@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Credentials implements Serializable {
  
-    private String username;
+	private static final long serialVersionUID = 7998958050934116336L;
+	private String username;
     private String password;
  
     public Credentials(String username, String password) {

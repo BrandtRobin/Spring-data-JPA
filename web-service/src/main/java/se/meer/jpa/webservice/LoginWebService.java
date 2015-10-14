@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -45,10 +46,10 @@ public class LoginWebService {
 	}
 	
     @POST
-    public Response authenticateUser(Credentials credentials) {
+    public Response authenticateUser(User user) {
 
-        String username = credentials.getUsername();
-        String password = credentials.getPassword();
+        String username = user.getUsername();
+        String password = user.getPassword();
 
         System.out.println("PASSWORD " + service.findUserByUsername(username).getPassword());
         try {
@@ -60,7 +61,7 @@ public class LoginWebService {
 //            Token token = new Token(username, "token");
 
             // Return the token on the response
-            return Response.ok(credentials).build();
+            return Response.ok(user).build();
 
         } catch (Exception e) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
