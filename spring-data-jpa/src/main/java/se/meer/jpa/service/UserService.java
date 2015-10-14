@@ -61,5 +61,12 @@ public class UserService {
 		userRepository.delete(user);
 		return user;
 	}
-
+	
+	public String findPasswordByUserId(Long id) {
+		return userRepository.findPasswordById(id);
+	}
+	
+	public String findPasswordByUsername(String username) {
+		return userRepository.findPasswordByUsername(username);
+	}
 }

@@ -33,7 +33,7 @@ public final class UserWebService {
 
 	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static UserService service = new UserService();
-	
+
 	static {
 		context.scan("se.meer.jpa.config");
 		context.refresh();
@@ -53,7 +53,7 @@ public final class UserWebService {
 	@Path("id/{id}")
 	public Response updateUserById(@PathParam("id") final Long id, final User user) {
 		User userUpdate = service.findUserById(id);
-		if(userUpdate != null) {
+		if (userUpdate != null) {
 			userUpdate.setFirstname(user.getFirstname());
 			userUpdate.setLastname(user.getLastname());
 			userUpdate.setUsername(user.getUsername());
