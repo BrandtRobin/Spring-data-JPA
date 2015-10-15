@@ -1,7 +1,9 @@
 package se.meer.jpa.webservice;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -18,7 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import se.meer.jpa.Hash;
-import se.meer.jpa.model.Credentials;
+import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.service.UserService;
 
 @Path("login")
@@ -40,28 +42,27 @@ public class LoginWebService {
 		service = context.getBean(UserService.class);
 	}
 
+	@Secure
 	@POST
-	public Response authenticateUser(final Credentials loginUser) {
+	public Response authenticateUser(@HeaderParam("username") String username, @HeaderParam("password") String password)
+			throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-		System.out.println("PASSWORD " + service.findUserByUsername(loginUser.getUsername()).getPassword());
-		try {
-
-			Hash.validate(loginUser.getPassword(), service.findUserByUsername(loginUser.getUsername()).getPassword());
+		if (Hash.validatePassword(password, service.findUserByUsername(username).getPassword())) {
 
 			String token = Hash.createHash(createTokenString());
-			tokenMap.put(loginUser.getUsername(), token);
-			
+			tokenMap.put(token, username);
 			return Response.ok(token).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).build();
 		}
+		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
-	
-    public String createTokenString() {
-	    Random random = new SecureRandom();
-	    String token = new BigInteger(130, random).toString(32);
-	    return token;
-    }
 
+	public String createTokenString() {
+		Random random = new SecureRandom();
+		String token = new BigInteger(130, random).toString(32);
+		return token;
+	}
+
+	public static HashMap<String, String> getTokenmap() {
+		return tokenMap;
+	}
 }
