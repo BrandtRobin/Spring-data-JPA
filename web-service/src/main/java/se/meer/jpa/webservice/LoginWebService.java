@@ -33,6 +33,7 @@ public class LoginWebService {
 	private UriInfo uriInfo;
 
 	private static final HashMap<String, String> tokenMap = new HashMap<String, String>();
+	private static final String TOKEN_PREFIX = "REEM ";
 
 	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static UserService service = new UserService();
@@ -49,14 +50,14 @@ public class LoginWebService {
 
 		if (Hash.validatePassword(password, service.findUserByUsername(username).getPassword())) {
 
-			String token = Hash.createHash(createTokenString());
+			String token = createTokenString();
 			tokenMap.put(token, username);
-			return Response.ok(token).build();
+			return Response.ok(TOKEN_PREFIX + token).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
 
-	public String createTokenString() {
+	public String createTokenString() throws NoSuchAlgorithmException, InvalidKeySpecException {
 		Random random = new SecureRandom();
 		String token = new BigInteger(130, random).toString(32);
 		return token;

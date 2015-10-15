@@ -27,13 +27,14 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		String path = requestContext.getUriInfo().getPath();
 		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-		if (authorizationHeader == null || !authorizationHeader.startsWith("REEM ")) {
-			throw new NotAuthorizedException("Authorization header must be provided");
-		}
-
-		String token = authorizationHeader.substring("REEM".length()).trim();
-
 		if (!path.startsWith("login")) {
+
+			if (authorizationHeader == null || !authorizationHeader.startsWith("REEM ")) {
+				throw new NotAuthorizedException("Authorization header must be provided");
+			}
+
+			String token = authorizationHeader.substring("REEM".length()).trim();
+
 			if (!validateToken(token)) {
 				requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 			}
