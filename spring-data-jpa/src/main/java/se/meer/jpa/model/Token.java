@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 
 @Entity
@@ -13,6 +14,7 @@ public class Token extends AbstractEntity implements Serializable {
 	private String username;
 	@Column(unique = true)
 	private String authToken;
+	@Convert(converter = LocalDateConverter.class)
 	private LocalDateTime timeStamp;
 
 	public Token() {
