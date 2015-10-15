@@ -17,12 +17,14 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.service.IssueService;
 import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 import se.meer.jpa.service.WorkItemService;
 
+@Secure
 @Component
 @Path("issues")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

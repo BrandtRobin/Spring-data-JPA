@@ -20,9 +20,11 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
+@Secure
 @Path("users")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

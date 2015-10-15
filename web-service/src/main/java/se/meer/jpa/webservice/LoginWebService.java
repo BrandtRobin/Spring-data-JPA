@@ -23,6 +23,7 @@ import se.meer.jpa.Hash;
 import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.service.UserService;
 
+@Secure
 @Path("login")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -42,7 +43,6 @@ public class LoginWebService {
 		service = context.getBean(UserService.class);
 	}
 
-	@Secure
 	@POST
 	public Response authenticateUser(@HeaderParam("username") String username, @HeaderParam("password") String password)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {

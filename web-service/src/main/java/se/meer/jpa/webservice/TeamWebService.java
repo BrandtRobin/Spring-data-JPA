@@ -20,10 +20,12 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.Team;
 import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 
+@Secure
 @Component
 @Path("teams")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
