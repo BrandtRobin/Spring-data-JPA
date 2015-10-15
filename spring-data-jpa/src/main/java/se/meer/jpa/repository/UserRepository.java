@@ -20,7 +20,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	List<User> findByLastname(String lastname);
 
-	List<User> findByUsername(String username);
+	User findByUsername(String username);
 
 	Collection<? extends User> findUserByTeamId(Long id);
 

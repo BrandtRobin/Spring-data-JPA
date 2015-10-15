@@ -30,4 +30,5 @@ public class ServiceConfig {
 	public IssueService issueService() {
 		return new IssueService();
 	}
+	
 }
