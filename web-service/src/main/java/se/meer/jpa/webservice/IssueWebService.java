@@ -20,9 +20,6 @@ import org.springframework.stereotype.Component;
 import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.Issue;
 import se.meer.jpa.service.IssueService;
-import se.meer.jpa.service.TeamService;
-import se.meer.jpa.service.UserService;
-import se.meer.jpa.service.WorkItemService;
 
 @Secure
 @Component

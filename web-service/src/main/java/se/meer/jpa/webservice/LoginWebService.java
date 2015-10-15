@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,6 +20,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import se.meer.jpa.Hash;
 import se.meer.jpa.annotation.Secure;
+import se.meer.jpa.model.Credentials;
+import se.meer.jpa.model.Token;
 import se.meer.jpa.service.UserService;
 
 @Secure
@@ -32,7 +33,7 @@ public class LoginWebService {
 	@Context
 	private UriInfo uriInfo;
 
-	private static final HashMap<String, String> tokenMap = new HashMap<String, String>();
+	private static final HashMap<String, String> tokenMap = new HashMap<>();
 	private static final String TOKEN_PREFIX = "REEM ";
 
 	private static final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -45,14 +46,17 @@ public class LoginWebService {
 	}
 
 	@POST
-	public Response authenticateUser(@HeaderParam("username") String username, @HeaderParam("password") String password)
+	public Response authenticateUser(final Credentials credentials)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-		if (Hash.validatePassword(password, service.findUserByUsername(username).getPassword())) {
+		if (Hash.validatePassword(credentials.getPassword(), 
+				service.findUserByUsername(credentials.getUsername()).getPassword())) {
 
-			String token = createTokenString();
-			tokenMap.put(token, username);
-			return Response.ok(TOKEN_PREFIX + token).build();
+			String tokenString = createTokenString();
+			Token token = new Token(tokenString);
+			tokenMap.put(token.getToken(), credentials.getUsername());
+			token.setToken(TOKEN_PREFIX + tokenString);
+			return Response.ok(token).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
