@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import se.meer.jpa.PasswordHash;
+import se.meer.jpa.Hash;
 
 @Entity
 @Table(name = "tblUsers")
@@ -92,7 +92,7 @@ public class User extends AbstractEntity {
 	}
 	
 	public String setPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		return this.password = PasswordHash.createHash(password);
+		return this.password = Hash.createHash(password);
 	}
 
 }

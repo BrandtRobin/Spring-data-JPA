@@ -40,7 +40,7 @@ import java.security.spec.InvalidKeySpecException;
  * Author: havoc AT defuse.ca
  * www: http://crackstation.net/hashing-security.htm
  */
-public class PasswordHash
+public class Hash
 {
     public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
@@ -92,10 +92,10 @@ public class PasswordHash
      * @param   correctHash     the hash of the valid password
      * @return                  true if the password is correct, false if not
      */
-    public static boolean validatePassword(String password, String correctHash)
+    public static boolean validate(String password, String correctHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        return validatePassword(password.toCharArray(), correctHash);
+        return validateHash(password.toCharArray(), correctHash);
     }
 
     /**
@@ -105,7 +105,7 @@ public class PasswordHash
      * @param   correctHash     the hash of the valid password
      * @return                  true if the password is correct, false if not
      */
-    public static boolean validatePassword(char[] password, String correctHash)
+    public static boolean validateHash(char[] password, String correctHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         // Decode the hash into its parameters
@@ -186,52 +186,6 @@ public class PasswordHash
             return String.format("%0" + paddingLength + "d", 0) + hex;
         else
             return hex;
-    }
-
-    /**
-     * Tests the basic functionality of the PasswordHash class
-     *
-     * @param   args        ignored
-     */
-    public static void main(String[] args)
-    {
-        try
-        {
-            // Print out 10 hashes
-            for(int i = 0; i < 10; i++)
-                System.out.println(PasswordHash.createHash("p\r\nassw0Rd!"));
-
-            // Test password validation
-            boolean failure = false;
-            System.out.println("Running tests...");
-            for(int i = 0; i < 100; i++)
-            {
-                String password = ""+i;
-                String hash = createHash(password);
-                String secondHash = createHash(password);
-                if(hash.equals(secondHash)) {
-                    System.out.println("FAILURE: TWO HASHES ARE EQUAL!");
-                    failure = true;
-                }
-                String wrongPassword = ""+(i+1);
-                if(validatePassword(wrongPassword, hash)) {
-                    System.out.println("FAILURE: WRONG PASSWORD ACCEPTED!");
-                    failure = true;
-                }
-                if(!validatePassword(password, hash)) {
-                    System.out.println("FAILURE: GOOD PASSWORD NOT ACCEPTED!");
-                    failure = true;
-                }
-            }
-            if(failure)
-                System.out.println("TESTS FAILED!");
-            else
-                System.out.println("TESTS PASSED!");
-        }
-        catch(Exception ex)
-        {
-            System.out.println("ERROR: " + ex);
-        }
     }
 
 }
