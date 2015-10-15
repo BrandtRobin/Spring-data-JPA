@@ -51,7 +51,7 @@ public class LoginWebService {
 
 			Token token = tokenService.createToken(username);
 
-			return Response.ok(token).build();
+			return Response.ok().build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.UNAUTHORIZED).build();

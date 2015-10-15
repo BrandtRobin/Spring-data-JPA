@@ -17,6 +17,7 @@ public class TokenService {
 	public Token createToken(String username) {
         String tokenString = createTokenString();
         Token token = new Token(username, tokenString);
+        System.out.println(username+tokenString);
 		return tokenRepository.save(token);
 	}
 	
