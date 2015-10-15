@@ -32,7 +32,7 @@ public class UserService {
 		return userRepository.findByLastname(lastname);
 	}
 
-	public List<User> findUserByUsername(String username) {
+	public User findUserByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
@@ -62,4 +62,5 @@ public class UserService {
 		return user;
 	}
 
+	
 }
