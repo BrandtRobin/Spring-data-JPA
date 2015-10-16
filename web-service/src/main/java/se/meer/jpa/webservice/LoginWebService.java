@@ -54,7 +54,7 @@ public class LoginWebService {
 
 			String tokenString = createTokenString();
 			Token token = new Token(tokenString);
-			tokenMap.put(token.getToken(), credentials.getUsername());
+			tokenMap.put(credentials.getUsername(), Hash.createHash(token.getToken()));
 			token.setToken(TOKEN_PREFIX + tokenString);
 			return Response.ok(token).build();
 		}
