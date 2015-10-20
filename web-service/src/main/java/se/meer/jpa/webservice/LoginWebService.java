@@ -1,6 +1,7 @@
 package se.meer.jpa.webservice;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response.Status;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,6 +24,7 @@ import se.meer.jpa.Hash;
 import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.Credentials;
 import se.meer.jpa.model.Token;
+import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
 @Secure
@@ -48,17 +51,30 @@ public class LoginWebService {
 	@POST
 	public Response authenticateUser(final Credentials credentials)
 			throws NoSuchAlgorithmException, InvalidKeySpecException {
+		try {
+			if (Hash.validate(credentials.getPassword(),
+					service.findUserByUsername(credentials.getUsername()).getPassword())) {
 
-		if (Hash.validatePassword(credentials.getPassword(), 
-				service.findUserByUsername(credentials.getUsername()).getPassword())) {
-
-			String tokenString = createTokenString();
-			Token token = new Token(tokenString);
-			tokenMap.put(credentials.getUsername(), Hash.createHash(token.getToken()));
-			token.setToken(TOKEN_PREFIX + tokenString);
-			return Response.ok(token).build();
+				String tokenString = createTokenString();
+				Token token = new Token(tokenString);
+				tokenMap.put(credentials.getUsername(), Hash.createHash(token.getToken()));
+				token.setToken(TOKEN_PREFIX + tokenString);
+				return Response.ok(token).build();
+			}
+		} catch (Exception e) {
+			return Response.status(Response.Status.UNAUTHORIZED).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
+	}
+	
+	@POST
+	@Path("/new-user")
+	public Response createUser(final User user) {
+		user.addUserNumber();
+		service.createOrUpdateUser(user);
+		final String id = "id/" + user.getId();
+		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
+		return Response.status(Status.CREATED).location(location).build();
 	}
 
 	public String createTokenString() throws NoSuchAlgorithmException, InvalidKeySpecException {

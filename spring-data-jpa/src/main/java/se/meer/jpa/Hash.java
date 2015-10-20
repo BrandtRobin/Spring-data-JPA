@@ -123,7 +123,7 @@ public class Hash
      * @param   correctHash     the hash of the valid password
      * @return                  true if the password is correct, false if not
      */
-    public static boolean validatePassword(String password, String correctHash)
+    public static boolean validate(String password, String correctHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         return validatePassword(password.toCharArray(), correctHash);

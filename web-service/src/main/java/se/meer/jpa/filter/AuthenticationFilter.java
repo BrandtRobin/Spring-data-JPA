@@ -20,7 +20,7 @@ import se.meer.jpa.webservice.LoginWebService;
 @Secure
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-public class AuthenticationFilter implements ContainerRequestFilter {
+public final class AuthenticationFilter implements ContainerRequestFilter {
 	
 
 	@Override
@@ -47,9 +47,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	private boolean validateToken(String token, String username) {
 		String hashedToken = LoginWebService.getTokenmap().get(username);
 		try {
-			return Hash.validatePassword(token, hashedToken);
+			return Hash.validate(token, hashedToken);
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			e.printStackTrace();
 			return false;
 		}
 	}

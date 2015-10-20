@@ -24,7 +24,7 @@ import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
-@Secure
+//@Secure
 @Path("users")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -114,6 +114,13 @@ public final class UserWebService {
 	@Path("/team/{teamId}")
 	public Response findAllUsersInTeam(@PathParam("teamId") final Long teamId) {
 		List<User> users = service.findUsersByTeamId(teamId);
+		return Response.ok().entity(users).build();
+	}
+	
+	@GET
+	@Path("/teamname/{teamName}")
+	public Response findAllUsersInTeam(@PathParam("teamName") final String teamName) {
+		List<User> users = service.findUsersByTeamName(teamName);
 		return Response.ok().entity(users).build();
 	}
 }

@@ -26,6 +26,10 @@ public class TeamService {
 	public Team findByTeamId(long id) {
 		return teamRepository.findOne(id);
 	}
+	
+	public Team findByTeamName(String teamName) {
+		return teamRepository.findTeamByTeamName(teamName);
+	}
 
 	public Long deleteTeamById(long id) {
 		List<User> users = new ArrayList<>();
@@ -49,4 +53,11 @@ public class TeamService {
 		user.setTeam(team);
 		userRepository.save(user);
 	}
+
+	public void addUserToTeamByUsername(String username, Team team) {
+		User user = userRepository.findByUsername(username);
+		user.setTeam(team);
+		userRepository.save(user);
+	}
+
 }

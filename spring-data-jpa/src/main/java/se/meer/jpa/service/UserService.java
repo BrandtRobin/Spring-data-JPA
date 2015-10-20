@@ -51,6 +51,12 @@ public class UserService {
 		users.addAll(userRepository.findUsersByTeamId(id));
 		return users;
 	}
+	
+	public List<User> findUsersByTeamName(String teamName) {
+		List<User> users = new ArrayList<>();
+		users.addAll(userRepository.findUsersByTeamName(teamName));
+		return users;
+	}
 
 	public Long deleteUserById(Long id) {
 		userRepository.delete(id);
