@@ -1,6 +1,7 @@
 package se.meer.jpa.webservice;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -14,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -22,6 +24,7 @@ import se.meer.jpa.Hash;
 import se.meer.jpa.annotation.Secure;
 import se.meer.jpa.model.Credentials;
 import se.meer.jpa.model.Token;
+import se.meer.jpa.model.User;
 import se.meer.jpa.service.UserService;
 
 @Secure
@@ -54,11 +57,21 @@ public class LoginWebService {
 
 			String tokenString = createTokenString();
 			Token token = new Token(tokenString);
-			tokenMap.put(credentials.getUsername(), Hash.createHash(token.getToken()));
+			tokenMap.put(token.getToken() ,credentials.getUsername());
 			token.setToken(TOKEN_PREFIX + tokenString);
 			return Response.ok(token).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
+	}
+	
+	@POST
+	@Path("/new-user")
+	public Response createUser(final User user) {
+		user.addUserNumber();
+		service.createOrUpdateUser(user);
+		final String id = "id/" + user.getId();
+		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
+		return Response.status(Status.CREATED).location(location).build();
 	}
 
 	public String createTokenString() throws NoSuchAlgorithmException, InvalidKeySpecException {

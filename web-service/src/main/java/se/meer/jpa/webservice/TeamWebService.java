@@ -26,7 +26,6 @@ import se.meer.jpa.service.TeamService;
 import se.meer.jpa.service.UserService;
 
 @Secure
-@Component
 @Path("teams")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -51,7 +50,7 @@ public class TeamWebService {
 		service.createOrUpdateTeam(team);
 		final String id = "id/" + team.getId();
 		final URI location = uriInfo.getAbsolutePathBuilder().path(id).build();
-		return Response.status(Status.CREATED).location(location).build();
+		return Response.status(Status.CREATED).entity(team).location(location).build();
 	}
 
 	@DELETE
@@ -59,6 +58,13 @@ public class TeamWebService {
 	public Response deleteTeamById(@PathParam("id") final Long id) {
 		service.deleteTeamById(id);
 		return Response.ok("Team with id " + id + " deleted").build();
+	}
+	
+	@GET
+	@Path("id/{id}")
+	public Response findTeamById(@PathParam("id") final Long id) {
+		Team team = service.findTeamById(id);
+		return Response.ok().entity(team).build();
 	}
 
 	@PUT
@@ -83,12 +89,25 @@ public class TeamWebService {
 	@Path("id/{teamId}/user/{userId}")
 	public Response addUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final Long userId) {
 		if (service.findByTeamId(teamId) == null) {
-			return Response.status(Status.NOT_FOUND).entity("Team with id " + teamId + " not found").build();
+			return Response.status(Status.NOT_FOUND).build();
 		} else if (userService.findUserById(userId) == null) {
-			return Response.status(Status.NOT_FOUND).entity("User with id " + userId + " not found").build();
+			return Response.status(Status.NOT_FOUND).build();
 		}
 
 		service.addUserToTeam(userId, service.findByTeamId(teamId));
-		return Response.ok().entity("Added user " + userId + " to team " + teamId).build();
+		return Response.ok().build();
+	}
+	
+	@PUT
+	@Path("id/{teamId}/username/{username}")
+	public Response addUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("username") final String username) {
+		if (service.findByTeamId(teamId) == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		} else if (userService.findUserByUsername(username) == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+
+		service.addUserToTeam(username, service.findByTeamId(teamId));
+		return Response.ok().build();
 	}
 }

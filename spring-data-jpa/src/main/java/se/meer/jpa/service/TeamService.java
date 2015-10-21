@@ -49,4 +49,14 @@ public class TeamService {
 		user.setTeam(team);
 		userRepository.save(user);
 	}
+
+	public void addUserToTeam(String username, Team team) {
+		User user = userRepository.findByUsername(username);
+		user.setTeam(team);
+		userRepository.save(user);
+	}
+
+	public Team findTeamById(Long id) {
+		return teamRepository.findOne(id);
+	}
 }
